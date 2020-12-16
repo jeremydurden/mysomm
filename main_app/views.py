@@ -10,14 +10,26 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+def mywines(request):
+  return render(request, 'mywines/index.html')
 
-##This is the logic for the map page
-  # template_name = '{TEMPLATE_NAME.html}' 
+def mygrapes(request):
+  return render(request, 'mygrapes/index.html')
 
+def findwines(request):
+  return render(request, 'findwines/index.html')
+
+def findwineries(request):
+  return render(request, 'findwineries/index.html')
+
+
+#This is the logic for the map page
+  # template_name = '{TEMPLATE_NAME.html}'
+  #
   # def get_context_data(self, **kwargs):
-  #     context = super(IndexView, self).get_context_data(**kwargs)
-  #     context['plot'] = map_us.render_map()
-  #     return context
+  #   context = super(IndexView, self).get_context_data(**kwargs)
+  #   context['plot'] = map_us.render_map()
+  #   return context
   
   
   
