@@ -10,17 +10,17 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-def mywines(request):
-  return render(request, 'mywines.html')
 
-def mygrapes(request):
-  return render(request, 'mygrapes.html')
+##This is the logic for the map page
+  # template_name = '{TEMPLATE_NAME.html}' 
 
-def findwines(request):
-  return render(request, 'findwines.html')
-
-def findwineries(request):
-  return render(request, 'findwineries.html')
+  # def get_context_data(self, **kwargs):
+  #     context = super(IndexView, self).get_context_data(**kwargs)
+  #     context['plot'] = map_us.render_map()
+  #     return context
+  
+  
+  
 
 def signup(request):
   error_message = ''
@@ -33,7 +33,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('home')
+      return redirect('about')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
