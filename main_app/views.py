@@ -17,14 +17,14 @@ def about(request):
 
 def my_wines(request):
   my_wines = Wine.objects.filter(user=request.user)
-   if(request.wine_id):
+  if(request.wine_id):
     selected_wine = Wine.objects.filter(pk=request.wine_id)
   else:
     selected_wine = None
   return render(request, 'mywines/index.html', {
     "my_wines": my_wines,
-     "selected_wine": selected_wine
-    })
+    "selected_wine": selected_wine
+  })
 
 def my_grapes(request):
   return render(request, 'mygrapes/index.html')
