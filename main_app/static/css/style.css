@@ -1,0 +1,29 @@
+body {
+    font-family: 'Gabriela', serif;
+}
+header {
+    color: #C4C4C4;
+    background-color: #971313;
+    height: 10%;
+    font-size: larger;
+}
+h1 {
+    font-size: 350%;
+}
+#logo {
+    color: #C4C4C4;
+    text-decoration: none;
+}
+.nav-button {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+.navbar-nav {
+    margin: 0 auto;
+    text-align: center;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #C4C4C4;
+    text-decoration: none;
+    font-size: larger;
+}
