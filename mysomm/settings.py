@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mysomm',
-        'USER': 'postgres',
-        'PASSWORD': '1984',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '1984',
     }
 }
 
