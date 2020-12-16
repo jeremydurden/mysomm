@@ -29,11 +29,8 @@
 <!-- Login Links Below Here -->
                 <div>
                     {% if user.is_authenticated %}
-                    <div id="header_row" class="row">
-                        <div class="col-sm">Avatar</div>
-                    </div>
                     <div class="row">
-                        <div class="col-sm">name</div>
+                        <div class="col-sm">{{ user.username }}</div>
                     </div>
                     <div class="col-sm"><a href="{% url 'logout' %}">Log Out</a></div>
                     {% else %}
@@ -57,7 +54,7 @@
             <div class="navbar-nav">
                 <div class="nav-button"><a href="mywines" class="nav-item nav-link">my wines</a></div>
                 <div class="nav-button"><a href="mygrapes" class="nav-item nav-link">my grapes</a></div>
-                <div class="nav-button"><img src="{% static 'images/nav_btn.png' %}"><a href="findwines" class="nav-item nav-link">find wines</a></div>
+                <div id="current_link" class="nav-button"><a href="findwines" class="nav-item nav-link">find wines</a></div>
                 <div class="nav-button"><a href="findwineries" class="nav-item nav-link">find wineries</a></div>
             </div>
         </div>
