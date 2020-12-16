@@ -20,7 +20,7 @@
 <header class="container-fluid">
     <div class="container">
         <div class="row">
-            <logo class="col-sm"><a href="#" ><h1>MySomm.</h1></a></logo>
+            <div class="col-sm"><a id="logo" href="#" ><h1>MySomm.</h1></a></div>
             <div class="col-sm-2">
                 <div id="header_row" class="row">
                     <div class="col-sm">Avatar</div>
@@ -41,10 +41,10 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link active">my wines</a>
-                <a href="#" class="nav-item nav-link">my grapes</a>
-                <a href="#" class="nav-item nav-link">find wines</a>
-                <a href="#" class="nav-item nav-link">find wineries</a>
+                <div class="nav-button"><a href="#" class="nav-item nav-link">my wines</a></div>
+                <div class="nav-button"><a href="#" class="nav-item nav-link">my grapes</a></div>
+                <div class="nav-button"><img src="{% static 'images/nav_btn.png' %}"<a href="#" class="nav-item nav-link">find wines</a></div>
+                <div class="nav-button"><a href="#" class="nav-item nav-link">find wineries</a></div>
             </div>
         </div>
     </div>

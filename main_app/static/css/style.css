@@ -10,16 +10,20 @@ header {
 h1 {
     font-size: 350%;
 }
-nav, button {
-    color: #C4C4C4;
-}
-/* A link that has not been visited */
-a:link {
+#logo {
     color: #C4C4C4;
     text-decoration: none;
 }
-/* A link that has been visited */
-a:visited {
+.nav-button {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+.navbar-nav {
+    margin: 0 auto;
+    text-align: center;
+}
+.navbar-dark .navbar-nav .nav-link {
     color: #C4C4C4;
     text-decoration: none;
+    font-size: larger;
 }
