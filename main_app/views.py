@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .models import Wine
 
 
 # Create your views here.
@@ -24,21 +25,33 @@ class WineryCreate(CreateView):
 
 
 def home(request):
-  return render(request, 'base.html')
+  if(request.wine_id):
+    selected_wine = Wine.objects.filter(pk=request.wine_id)
+  else:
+    selected_wine = None
+  return render(request, 'base.html', {"selected_wine": selected_wine})
 
 def about(request):
   return render(request, 'about.html')
 
-def mywines(request):
-  return render(request, 'mywines/index.html')
+def my_wines(request):
+  my_wines = Wine.objects.filter(user=request.user)
+  if(request.wine_id):
+    selected_wine = Wine.objects.filter(pk=request.wine_id)
+  else:
+    selected_wine = None
+  return render(request, 'mywines/index.html', {
+    "my_wines": my_wines,
+    "selected_wine": selected_wine
+  })
 
-def mygrapes(request):
+def my_grapes(request):
   return render(request, 'mygrapes/index.html')
 
-def findwines(request):
+def find_wines(request):
   return render(request, 'findwines/index.html')
 
-def findwineries(request):
+def find_wineries(request):
   return render(request, 'findwineries/index.html')
 
 
