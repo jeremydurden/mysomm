@@ -4,18 +4,12 @@ from django.views.generic import ListView, DetailView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
-def home(request):
-  return render(request, 'base.html')
-
-def about(request):
-  return render(request, 'about.html')
 
 
-class WineryCreate(LoginRequiredMixin, CreateView):
+class WineryCreate(CreateView):
   model = Winery
   fields = ['name', 'address', 'region', 'county', 'city', 'state', 'zipcode', 'img_url', 'logo_url']
 
@@ -23,28 +17,38 @@ class WineryCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class WineryUpdate
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ##This is the logic for the map page
   # template_name = '{TEMPLATE_NAME.html}' 
 
+
+def home(request):
+  return render(request, 'base.html')
+
+def about(request):
+  return render(request, 'about.html')
+
+def mywines(request):
+  return render(request, 'mywines/index.html')
+
+def mygrapes(request):
+  return render(request, 'mygrapes/index.html')
+
+def findwines(request):
+  return render(request, 'findwines/index.html')
+
+def findwineries(request):
+  return render(request, 'findwineries/index.html')
+
+
+#This is the logic for the map page
+  # template_name = '{TEMPLATE_NAME.html}'
+  #
   # def get_context_data(self, **kwargs):
-  #     context = super(IndexView, self).get_context_data(**kwargs)
-  #     context['plot'] = map_us.render_map()
-  #     return context
+  #   context = super(IndexView, self).get_context_data(**kwargs)
+  #   context['plot'] = map_us.render_map()
+  #   return context
   
   
   
