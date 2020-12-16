@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
+from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def home(request):
@@ -9,6 +13,29 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
+
+
+class WineryCreate(LoginRequiredMixin, CreateView):
+  model = Winery
+  fields = ['name', 'address', 'region', 'county', 'city', 'state', 'zipcode', 'img_url', 'logo_url']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+class WineryUpdate
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ##This is the logic for the map page
