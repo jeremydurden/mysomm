@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Winery(models.Model):
@@ -11,6 +12,7 @@ class Winery(models.Model):
     zipcode = models.CharField(max_length=10)
     img_url = models.CharField(max_length=100)
     logo_url = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} is located at {self.address} in {self.city}, {self.state}'
