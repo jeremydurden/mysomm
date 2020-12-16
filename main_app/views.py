@@ -10,6 +10,18 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+def mywines(request):
+  return render(request, 'mywines.html')
+
+def mygrapes(request):
+  return render(request, 'mygrapes.html')
+
+def findwines(request):
+  return render(request, 'findwines.html')
+
+def findwineries(request):
+  return render(request, 'findwineries.html')
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -21,7 +33,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('about')
+      return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form

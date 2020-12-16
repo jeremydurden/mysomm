@@ -16,23 +16,37 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 <header class="container-fluid">
     <div class="container">
         <div class="row">
+
+<!-- Site Logo Below Here -->
             <div class="col-sm"><a id="logo" href="#" ><h1>MySomm.</h1></a></div>
             <div class="col-sm-2">
-                <div id="header_row" class="row">
-                    <div class="col-sm">Avatar</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">name</div>
+
+<!-- Login Links Below Here -->
+                <div>
+                    {% if user.is_authenticated %}
+                    <div id="header_row" class="row">
+                        <div class="col-sm">Avatar</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">name</div>
+                    </div>
+                    <div class="col-sm"><a href="{% url 'logout' %}">Log Out</a></div>
+                    {% else %}
+                    <div class="col-sm"><a href="{% url 'login' %}">Log In</a></div>
+                    <div class="col-sm"><a href="{% url 'signup' %}">Sign Up</a></div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Nav Links Below Here -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -41,15 +55,15 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <div class="nav-button"><a href="#" class="nav-item nav-link">my wines</a></div>
-                <div class="nav-button"><a href="#" class="nav-item nav-link">my grapes</a></div>
-                <div class="nav-button"><img src="{% static 'images/nav_btn.png' %}"<a href="#" class="nav-item nav-link">find wines</a></div>
-                <div class="nav-button"><a href="#" class="nav-item nav-link">find wineries</a></div>
+                <div class="nav-button"><a href="mywines" class="nav-item nav-link">my wines</a></div>
+                <div class="nav-button"><a href="mygrapes/" class="nav-item nav-link">my grapes</a></div>
+                <div class="nav-button"><img src="{% static 'images/nav_btn.png' %}"<a href="findwines/" class="nav-item nav-link">find wines</a></div>
+                <div class="nav-button"><a href="findwineries/" class="nav-item nav-link">find wineries</a></div>
             </div>
         </div>
     </div>
 </nav>
-
-
-</body>
+{% block body %}
+{% endblock %}
+    </body>
 </html>

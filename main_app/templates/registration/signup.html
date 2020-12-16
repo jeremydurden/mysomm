@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-    
-    <body>
-        <div>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">Log Out</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Log In</a></li>
-            {% endif %}
-        </div>
-        <h1>Sign Up</h1>
-        <form method="post" action="{% url 'signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn" value="signup">
-        </form>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block body %}
+<h1>Sign Up</h1>
+<form method="post" action="{% url 'signup' %}">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" class="btn" value="signup">
+</form>
+{% endblock %}
