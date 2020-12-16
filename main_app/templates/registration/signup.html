@@ -12,15 +12,13 @@
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Log In</a></li>
-                <li><a href="{% url 'signup' %}">Sign Up</a></li>                
             {% endif %}
         </div>
-        <h1>Log In</h1>
-        <form method="post" action="{% url 'login' %}">
+        <h1>Sign Up</h1>
+        <form method="post" action="{% url 'signup' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" class="btn" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
+        <input type="submit" class="btn" value="signup">
         </form>
     </body>
 </html>
