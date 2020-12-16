@@ -1,10 +1,29 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
+from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import Wine
 
+
 # Create your views here.
+
+
+class WineryCreate(CreateView):
+  model = Winery
+  fields = ['name', 'address', 'region', 'county', 'city', 'state', 'zipcode', 'img_url', 'logo_url']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+
+
+##This is the logic for the map page
+  # template_name = '{TEMPLATE_NAME.html}' 
+
+
 def home(request):
   if(request.wine_id):
     selected_wine = Wine.objects.filter(pk=request.wine_id)
