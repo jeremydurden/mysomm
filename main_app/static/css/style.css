@@ -2,5 +2,24 @@ body {
     font-family: 'Gabriela', serif;
 }
 header {
+    color: #C4C4C4;
     background-color: #971313;
+    height: 10%;
+    font-size: larger;
+}
+h1 {
+    font-size: 350%;
+}
+nav, button {
+    color: #C4C4C4;
+}
+/* A link that has not been visited */
+a:link {
+    color: #C4C4C4;
+    text-decoration: none;
+}
+/* A link that has been visited */
+a:visited {
+    color: #C4C4C4;
+    text-decoration: none;
 }
