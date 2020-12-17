@@ -43,7 +43,7 @@ def home(request, **kwargs):
   #     selected_wine = Wine.objects.filter(pk=request.wine_id)
   
   return render(request, 'findwines/index.html')
-# , {"selected_wines": selected_wines, "map_data": map_data}
+#  , {"selected_wines": selected_wines, "map_data": map_data}
 
 
 class WineryCreate(CreateView):
