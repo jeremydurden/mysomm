@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    # path('', views.FindWineIndex.as_view(), name='home'),
     path('about/', views.about, name='about'),
     path('accounts/signup/', views.signup, name='signup'),
     path('mywines/', views.my_wines, name='my_wines'),

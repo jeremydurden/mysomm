@@ -1,50 +1,38 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-# from . import map_us
+from . import map_us
 from .models import Wine, County
 
 
 
 # Create your views here.
-
 def home(request, **kwargs):
   # If no query, then show all
   selected_wines = Wine.objects.all()
   # else show the search results
 
-  # wine_query =  []
-  # for county in County.objects.all():
-  #   county_wines = Wines.objects.filter(winery.county = county)
-  #   wine_query.append({
-  #     "name": county.name,
-  #     "state": county.state,
-  #     "lat": county.lat,
-  #     "lon": county.lon,
-  #     "count": len(count_wines)
-  #   })
-      
-    
+  wine_query =  []
+  for county in County.objects.all():
+    county_wines = selected_wines.filter(winery__county = county)
+    wine_query.append({
+      "name": county.name,
+      "state": county.state,
+      "lat": county.lat,
+      "lon": county.lon,
+      "count": len(county_wines)
+    })
 
 
-  # map = map_us.render_map(selected_wines)
+
+  map_data= map_us.render_map(wine_query)
   #This is the logic for the map page
-  # template_name = '{TEMPLATE_NAME.html}'
-  #
-  # def get_context_data(self, **kwargs):
-  #   context = super(IndexView, self).get_context_data(**kwargs)
-  #   context['plot'] = map_us.render_map()
-  #   return context
-  # if request:
-  #   if request.wine_id:
-  #     selected_wine = Wine.objects.filter(pk=request.wine_id)
   
-  return render(request, 'findwines/index.html')
-#  , {"selected_wines": selected_wines, "map_data": map_data}
+  return render(request, 'findwines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
 
 class WineryCreate(CreateView):
