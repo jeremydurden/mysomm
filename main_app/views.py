@@ -16,16 +16,16 @@ def home(request, **kwargs):
   selected_wines = Wine.objects.all()
   # else show the search results
 
-  wine_query =  []
-  for county in County.objects.all():
-    county_wines = Wines.objects.filter(winery.county = county)
-    wine_query.append({
-      "name": county.name,
-      "state": county.state,
-      "lat": county.lat,
-      "lon": county.lon,
-      "count": len(count_wines)
-    })
+  # wine_query =  []
+  # for county in County.objects.all():
+  #   county_wines = Wines.objects.filter(winery.county = county)
+  #   wine_query.append({
+  #     "name": county.name,
+  #     "state": county.state,
+  #     "lat": county.lat,
+  #     "lon": county.lon,
+  #     "count": len(count_wines)
+  #   })
       
     
 
