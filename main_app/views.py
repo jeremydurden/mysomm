@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from . import map_us
+# from . import map_us
 from .models import Wine, County
 
 
@@ -42,8 +42,8 @@ def home(request, **kwargs):
   #   if request.wine_id:
   #     selected_wine = Wine.objects.filter(pk=request.wine_id)
   
-  return render(request, 'findwines/index.html', {"selected_wines": selected_wines, "map_data": map_data})
-
+  return render(request, 'findwines/index.html')
+#  , {"selected_wines": selected_wines, "map_data": map_data}
 
 
 class WineryCreate(CreateView):
