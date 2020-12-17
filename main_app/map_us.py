@@ -4,8 +4,8 @@ import pandas as pd
 # from .models import Test_Data 
 # ANGIE -- you may need to import data here...if render map can't accept args
 
-def render_map():
-    df=pd.DataFrame(Test_Data)
+def render_map(query):
+    df=pd.DataFrame(query)
     df.head()
     df['text'] = df['name'] + '<br>Population ' + (df['count']/1e6).astype(str)+' million'
     limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
