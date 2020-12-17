@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
+from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
 from .models import Wine, County
 
 
+
 # Create your views here.
+
 def home(request, **kwargs):
   # If no query, then show all
   selected_wines = Wine.objects.all()
@@ -17,7 +21,7 @@ def home(request, **kwargs):
     county_wines = Wines.objects.filter(winery.county = county)
     wine_query.append({
       "name": county.name,
-      "state": county.state
+      "state": county.state,
       "lat": county.lat,
       "lon": county.lon,
       "count": len(count_wines)
@@ -40,19 +44,34 @@ def home(request, **kwargs):
   
   return render(request, 'findwines/index.html', {"selected_wines": selected_wines, "map_data": map_data})
 
+
+
+class WineryCreate(CreateView):
+  model = Winery
+  fields = ['name', 'address', 'region', 'county', 'city', 'state', 'zipcode', 'img_url', 'logo_url']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+
+
+
+
 def about(request):
   return render(request, 'about.html')
 
 def my_wines(request):
   my_wines = Wine.objects.filter(user=request.user)
+
   if request.wine_id:
     selected_wine = Wine.objects.filter(pk=request.wine_id)
   else:
     selected_wine = None
   return render(request, 'mywines/index.html', {
     "my_wines": my_wines,
-     "selected_wine": selected_wine
-    })
+    "selected_wine": selected_wine
+  })
 
 def my_grapes(request):
   return render(request, 'mygrapes/index.html')
