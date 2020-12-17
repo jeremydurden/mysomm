@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView, TemplateView
-from .models import Winery, Wine, Grape
+from .models import Profile, Winery, Wine, Grape
 from django.contrib.auth import login
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
 from .models import Wine, County
@@ -35,6 +34,16 @@ def home(request, **kwargs):
   return render(request, 'findwines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
 
+
+
+class MyProfile(CreateView):
+  model = Profile
+  fields = '__all__'
+
+
+
+
+
 class WineryCreate(CreateView):
   model = Winery
   fields = ['name', 'address', 'region', 'city', 'zipcode', 'img_url', 'logo_url']
@@ -42,12 +51,6 @@ class WineryCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
-
-
-
-class MyProfile(CreateView):
-  model = User
-  fields = ['first_name', 'last_name', 'username']
 
 
 
