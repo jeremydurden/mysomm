@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class County(models.Model):
     name = models.CharField(max_length=100)
     state = models.CharField(max_length=2)
-    lat = models.IntegerField()
-    lon = models.IntegerField()
+    lat = models.DecimalField(max_digits=9, decimal_places=6)
+    lon = models.DecimalField(max_digits=9, decimal_places=6)
 
     def __str__(self):
         return f'{self.name} is in {self.state}'
@@ -17,7 +17,7 @@ class Winery(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     region = models.CharField(max_length=100)
-    county = models.ForeignKey(County, on_delete=models.CASCADE)
+    county = models.ForeignKey(County, on_delete=models.SET_NULL, null=True)
     city = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=5)
     img_url = models.CharField(max_length=100)
@@ -37,6 +37,7 @@ class Wine(models.Model):
     color = models.CharField(max_length=100)
     taste_notes = models.TextField(max_length=250)
     image_url = models.CharField(max_length=100)
+    winery = models.ForeignKey(Winery, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} is a {self.vintage} {self.style} wine.'
