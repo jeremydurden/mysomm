@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 # from . import map_us
 from .models import Wine, County
@@ -55,6 +56,10 @@ class WineryCreate(CreateView):
     return super().form_valid(form)
 
 
+
+class MyProfile(CreateView):
+  model = User
+  fields = ['first_name', 'last_name', 'username']
 
 
 

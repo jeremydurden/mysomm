@@ -10,4 +10,5 @@ urlpatterns = [
     path('findwines/', views.find_wines, name='find_wines'),
     path('findwineries/', views.find_wineries, name='find_wineries'),
     path('winery/create/', views.WineryCreate.as_view(), name='winery_create'),
+    path('my/profile/', views.MyProfile.as_view(), name='my_profile'),
 ]
