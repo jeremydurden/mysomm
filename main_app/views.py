@@ -4,10 +4,46 @@ from django.views.generic import ListView, DetailView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import Wine
+from . import map_us
+from .models import Wine, County
+
 
 
 # Create your views here.
+
+def home(request, **kwargs):
+  # If no query, then show all
+  selected_wines = Wine.objects.all()
+  # else show the search results
+
+  wine_query =  []
+  for county in County.objects.all():
+    county_wines = Wines.objects.filter(winery.county = county)
+    wine_query.append({
+      "name": county.name,
+      "state": county.state,
+      "lat": county.lat,
+      "lon": county.lon,
+      "count": len(count_wines)
+    })
+      
+    
+
+
+  # map = map_us.render_map(selected_wines)
+  #This is the logic for the map page
+  # template_name = '{TEMPLATE_NAME.html}'
+  #
+  # def get_context_data(self, **kwargs):
+  #   context = super(IndexView, self).get_context_data(**kwargs)
+  #   context['plot'] = map_us.render_map()
+  #   return context
+  # if request:
+  #   if request.wine_id:
+  #     selected_wine = Wine.objects.filter(pk=request.wine_id)
+  
+  return render(request, 'findwines/index.html', {"selected_wines": selected_wines, "map_data": map_data})
+
 
 
 class WineryCreate(CreateView):
@@ -20,23 +56,15 @@ class WineryCreate(CreateView):
 
 
 
-##This is the logic for the map page
-  # template_name = '{TEMPLATE_NAME.html}' 
 
-
-def home(request):
-  if(request.wine_id):
-    selected_wine = Wine.objects.filter(pk=request.wine_id)
-  else:
-    selected_wine = None
-  return render(request, 'base.html', {"selected_wine": selected_wine})
 
 def about(request):
   return render(request, 'about.html')
 
 def my_wines(request):
   my_wines = Wine.objects.filter(user=request.user)
-  if(request.wine_id):
+
+  if request.wine_id:
     selected_wine = Wine.objects.filter(pk=request.wine_id)
   else:
     selected_wine = None
@@ -55,13 +83,6 @@ def find_wineries(request):
   return render(request, 'findwineries/index.html')
 
 
-#This is the logic for the map page
-  # template_name = '{TEMPLATE_NAME.html}'
-  #
-  # def get_context_data(self, **kwargs):
-  #   context = super(IndexView, self).get_context_data(**kwargs)
-  #   context['plot'] = map_us.render_map()
-  #   return context
   
   
   
