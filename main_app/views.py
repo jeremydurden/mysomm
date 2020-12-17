@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView, TemplateView
-from .models import Profile, Winery, Wine, Grape
+from .models import Profile, Winery, Wine, Grape, Glossary
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
@@ -39,9 +39,16 @@ def home(request, **kwargs):
 class MyProfile(CreateView):
   model = Profile
   fields = '__all__'
+# fields will be only relevant information (-fav wines) when available
 
+class MyWines(CreateView):
+  model = Wine
+  fields = '__all__'
+# fields will be switched to just the fav wines when available
 
-
+class GlossaryCreate(CreateView):
+  model = Glossary
+  fields = '__all__'
 
 
 class WineryCreate(CreateView):
