@@ -24,14 +24,14 @@
         <div class="row">
 
 <!-- Site Logo Below Here -->
-            <div class="col-sm"><a id="logo" href="#" ><h1>MySomm.</h1></a></div>
+            <div class="col-sm"><a id="logo" href="/" ><h1>MySomm.</h1></a></div>
             <div class="col-sm-2">
 
 <!-- Login Links Below Here -->
                 <div>
                     {% if user.is_authenticated %}
                     <div class="row">
-                        <div class="col-sm">{{ user.username }}</div>
+                        <div class="col-sm"><a href="/my/profile" class="nav-item nav-link">{{ user.username }}</a></div>
                     </div>
                     <div class="col-sm"><a href="{% url 'logout' %}">Log Out</a></div>
                     {% else %}
@@ -53,22 +53,18 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <div class="nav-button"><a href="mywines" class="nav-item nav-link">my wines</a></div>
-                <div class="nav-button"><a href="mygrapes" class="nav-item nav-link">my grapes</a></div>
-                <div id="current_link" class="nav-button"><a href="findwines" class="nav-item nav-link">find wines</a></div>
-                <div class="nav-button"><a href="findwineries" class="nav-item nav-link">find wineries</a></div>
+                <div id="current_link" class="nav-button"><a href="/findwines" class="nav-item nav-link">find wines</a></div>
+                {% if user.is_authenticated %}
+                <div class="nav-button"><a href="/my/wines" class="nav-item nav-link">my wines</a></div>
+                <div class="nav-button"><a href="/my/profile" class="nav-item nav-link">my profile</a></div>
+                {% endif %}
+                <div class="nav-button"><a href="/glossary" class="nav-item nav-link">glossary</a></div>
+                <div class="nav-button"><a href="/about" class="nav-item nav-link">about</a></div>
             </div>
         </div>
     </div>
 </nav>
 {% block body %}
-
-<!-- Kory's Front Test Area -->
-
-
-
-<!-- End Kory's Test Area -->
-
 {% endblock %}
     </body>
 </html>

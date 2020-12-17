@@ -7,6 +7,10 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self}'
 
+class Glossary(models.Model):
+    def __str__(self):
+        return f'{self}'
+
 
 
 class County(models.Model):
