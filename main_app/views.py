@@ -12,7 +12,7 @@ from .models import Wine
 
 class WineryCreate(CreateView):
   model = Winery
-  fields = ['name', 'address', 'region', 'county', 'city', 'state', 'zipcode', 'img_url', 'logo_url']
+  fields = ['name', 'address', 'region', 'city', 'zipcode', 'img_url', 'logo_url']
 
   def form_valid(self, form):
     form.instance.user = self.request.user

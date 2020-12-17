@@ -1,21 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+
+class County(models.Model):
+    name = models.CharField(max_length=100)
+    state = models.CharField(max_length=2)
+    lat = models.IntegerField()
+    lon = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.name} is in {self.state}'
+
 # Create your models here.
 class Winery(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     region = models.CharField(max_length=100)
-    county = models.CharField(max_length=100)
+    county = models.ForeignKey(County, on_delete=models.CASCADE)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=10)
+    zipcode = models.CharField(max_length=5)
     img_url = models.CharField(max_length=100)
     logo_url = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} is located at {self.address} in {self.city}, {self.state}'
+        return f'{self.name} is located at {self.address} in {self.city}.'
     
 
 
