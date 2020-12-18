@@ -48,3 +48,10 @@ display: none;
 #map_content {
     background: none;
 }
+#scrollSpy {
+	position: relative; /* required */
+}
+.list-group{
+    position: sticky; /* Supported in latest version of Chrome, Firefox, Safari, Opera and Edge browsers */
+    top: 15px;
+}
