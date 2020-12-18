@@ -84,6 +84,14 @@ def my_wines(request):
     # "selected_wine": selected_wine
   })
 
+
+
+
+
+class WineDetail(DetailView):
+  model = Wine
+
+
 ######## GRAPES #########
 def my_grapes(request):
   return render(request, 'mygrapes/index.html')
