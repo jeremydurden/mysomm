@@ -1,1 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>Winery Details</h1>
+
 {{winery}}
+<br><br>
+<h3>Our Wines:</h3>
+{% for wine in winery.wine_set.all %}
+          <tr>
+            <li>
+            <td><a href="{% url 'wines_detail' wine.id %}"><span style="font-style: italic;">{{wine.name}}</span> is a {{wine.vintage}} {{wine.style}}</a></td>
+          </tr></li> <br>
+{% endfor %}
+
+<form action="{% url 'add_wine' winery.id %}" method="post">
+  {% csrf_token %}
+  {{ wine_form.as_p }}
+  <input type="submit" class="btn" value="Add Wine">
+</form>
+<br>
+
+{% endblock %}
+
