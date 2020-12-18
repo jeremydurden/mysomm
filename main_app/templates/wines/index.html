@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <div class="row">
-    <div class="col" id="left_content">
+    <div class="col" id="info_content">
 <!--   Search Input     -->
         <div class="row">
             <div class="input-group">
@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-<!--   Render Map     -->
+    <!--   Render Map     -->
     <div class="col" id="map_content">
         {{ plot|safe }}
     </div>

@@ -1,5 +1,6 @@
 body {
     font-family: 'Gabriela', serif;
+    min-width: 450px;
 }
 header {
     color: #C4C4C4;
@@ -30,23 +31,25 @@ h1 {
     text-decoration: none;
     font-size: larger;
 }
-#left_content {
-    padding-top: 10px;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    min-height: 100px;
-    background-color: white;
+#content_bkg {
+    background-color: #C4C4C4;
+    min-height: 600px;
 }
 .g-gtitle, .infolayer, .modebar-container {
 display: none;
 }
-#content_bkg {
-    background-color: #C4C4C4;
-    background-repeat: true;
-    min-height: 600px;
+#info_content {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    min-width: 350px;
+    max-width: 350px;
 }
 #map_content {
     background: none;
+    max-width: 800px;
+    min-width: 500px;
 }
 #scrollSpy {
 	position: relative; /* required */
