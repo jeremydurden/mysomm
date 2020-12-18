@@ -33,7 +33,7 @@
                 <div>
                     {% if user.is_authenticated %}
                     <div class="row">
-                        <div class="col-sm"><a href="/profile" class="nav-item nav-link">{{ user.username }}</a></div>
+                        <div class="col-sm"><a href="{% url 'profile' %}" class="nav-item nav-link">{{ user.username }}</a></div>
                     </div>
                     <div class="col-sm"><a href="{% url 'logout' %}">Log Out</a></div>
                     {% else %}

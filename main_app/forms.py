@@ -1,8 +1,8 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Wine
+from .models import Wine, Winery
 
-class CreateWineryForm(forms.Form):
+class WineryForm(forms.Form):
     name = forms.CharField(max_length=100)
     address = forms.CharField(max_length=100)
     region = forms.CharField(max_length=100)
@@ -12,7 +12,6 @@ class CreateWineryForm(forms.Form):
     zipcode = forms.CharField(max_length=5)
     img_url = forms.CharField(max_length=100)
     logo_url = forms.CharField(max_length=100)
-
 
 
 
