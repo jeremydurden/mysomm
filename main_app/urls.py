@@ -18,7 +18,6 @@ urlpatterns = [
     path('wines/<int:pk>/', views.WineDetail.as_view(), name='wines_detail'),
     path('winery/<int:winery_id>/add_wine/', views.create_wine, name='add_wine'),
 
-
     ### Grapes ###
     path('mygrapes/', views.my_grapes, name='my_grapes'),
 ]
