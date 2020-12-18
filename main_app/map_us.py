@@ -8,9 +8,8 @@ config = {'setBackground': 'none'}
 
 def render_map(query):
     df=pd.DataFrame(query)
-    print(df)
     df.head()
-    df['text'] = df['name'] + '<br>Population ' + (df['count']/1e6).astype(str)+' million'
+    df['text'] = "Our Wines"
     limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
     colors = ["royalblue","crimson","lightseagreen","orange","lightgrey"]
     cities = []

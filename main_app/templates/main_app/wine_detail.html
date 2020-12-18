@@ -10,11 +10,10 @@
 <div>{{wine.vintage}}</div>
 <div>{{wine.color}}</div>
 <div>{{wine.taste_notes}}</div>
-<img src="{{ wine.image_url }}" alt="picture of wine bottle"></div>
+<img src="{{ wine.image_url }}" alt="picture of wine bottle" style="width: 80%; height: auto;"></div>
 
+
+<a href="{% url 'wine_update' wine.id %}">Edit</a>
 
 {% endblock %}
 
-<div>
-    <img src="{{ wine.image_url }}" alt="picture of wine bottle">
-</div>
