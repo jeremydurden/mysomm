@@ -4,13 +4,25 @@
 
 <h1>Wine Details</h1>
 
-<div>{{wine.name}}</div>
+<h2>{{wine.name}} <span>produced by <a href="{% url 'winery_detail' wine.winery.id %}">{{ wine.winery.name}}</a> </span></h2>
 <div>{{wine.style}}</div>
 <div>{{wine.grape}}</div>
 <div>{{wine.vintage}}</div>
 <div>{{wine.color}}</div>
 <div>{{wine.taste_notes}}</div>
 <img src="{{ wine.image_url }}" alt="picture of wine bottle" style="width: 80%; height: auto;"></div>
+
+
+<div>
+    <h3>Other Wines at this Winery</h3>
+    {% for other_wine in wine.winery.wine_set.all %}
+        {% if other_wine.id != wine.id %}
+            <div>
+                <a href="{% url 'wines_detail' other_wine.id %}"><span style="font-style: italic;">{{other_wine.name}}</span> is a {{other_wine.vintage}} {{other_wine.style}}</a>
+            </div>
+        {% endif%}
+    {% endfor %}
+</div>
 
 
 <a href="{% url 'wine_update' wine.id %}">Edit</a>

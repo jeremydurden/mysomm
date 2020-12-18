@@ -31,8 +31,6 @@ def home(request, **kwargs):
   return render(request, 'wines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
 def profile(request):
-  print('inside')
-  print(request.user.id)
   my_wineries = Winery.objects.filter(user=request.user.id)
 
   return render(request, 'profile.html', {'my_wineries': my_wineries})
@@ -79,6 +77,8 @@ def winery_detail(request, winery_id):
   return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
 def winery_update(request, winery_id):
+  ##Check to see if user owns winery, 
+  ## if not redirect
   winery = Winery.objects.get(pk=winery_id)
   if request.method == 'POST':
     form = WineryForm(request.POST)
@@ -134,7 +134,7 @@ def create_wine(request, winery_id):
     new_wine = form.save(commit=False)
     new_wine.winery_id = winery_id
     new_wine.save()
-  return redirect('winery/<int:winery_id>', winery_id=winery_id)
+  return redirect('winery_detail', winery_id=winery_id)
   
 
 
