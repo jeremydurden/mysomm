@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
 from .models import Wine, County
-from .forms import CreateWineryForm, WineForm
+from .forms import WineryForm, WineForm
 
 
 
@@ -45,7 +45,7 @@ def find_wineries(request):
 
 def create_winery(request):
   if request.method == 'POST':
-    form = CreateWineryForm(request.POST)
+    form = WineryForm(request.POST)
     if form.is_valid():
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
@@ -63,7 +63,7 @@ def create_winery(request):
       )
       winery.save()
       return redirect('winery_detail', winery_id=winery.id)
-  form = CreateWineryForm()
+  form = WineryForm()
   return render(request, 'main_app/winery_form.html', {"form": form})
 
 def winery_detail(request, winery_id):
@@ -73,6 +73,37 @@ def winery_detail(request, winery_id):
 
   return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
+def winery_update(request, winery_id):
+  winery = Winery.objects.get(pk=winery_id)
+  if request.method == 'POST':
+    form = WineryForm(request.POST)
+    if form.is_valid():
+      input_county = form.cleaned_data['county']
+      input_state = form.cleaned_data['state']
+      db_county = County.objects.get(name=input_county, state=input_state)
+      winery.name = form.cleaned_data['name']
+      winery.address = form.cleaned_data['address']
+      winery.region = form.cleaned_data['region']
+      winery.county = db_county
+      winery.city = form.cleaned_data['city']
+      winery.zipcode = form.cleaned_data['zipcode']
+      winery.img_url = form.cleaned_data['img_url']
+      winery.logo_url = form.cleaned_data['logo_url']
+      winery.user = request.user
+      winery.save()
+      return redirect('winery_detail', winery_id=winery.id)
+  form = WineryForm(initial={
+    'name': winery.name,
+    'address': winery.address,
+    'region': winery.region,
+    'county': winery.county.name,
+    'city': winery.city,
+    'state': winery.county.state,
+    'zipcode': winery.zipcode,
+    'img_url': winery.img_url,
+    'logo_url': winery.logo_url
+    })
+  return render(request, 'main_app/winery_form.html', {"form": form})
 
 ######### WINES #########
 def my_wines(request):
@@ -94,7 +125,8 @@ def create_wine(request, winery_id):
     new_wine = form.save(commit=False)
     new_wine.winery_id = winery_id
     new_wine.save()
-  return redirect('winery_detail', winery_id=winery_id)
+  return redirect('winery/<int:winery_id>', winery_id=winery_id)
+  
 
 
 
