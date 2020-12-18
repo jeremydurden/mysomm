@@ -30,13 +30,21 @@ class Winery(models.Model):
         return f'{self.name} is located at {self.address} in {self.city}.'
     
 
-
 class Wine(models.Model):
+    RED = 'RD'
+    WHITE = 'WH'
+    ROSE = 'RS'
+    COLOR_CHOICES = [
+        (RED, 'Red'),
+        (WHITE, 'White'),
+        (ROSE, 'Rosé'),
+    ]
+
     name = models.CharField(max_length=100)
     style = models.CharField(max_length=100)
-    varietal = models.CharField(max_length=100)
-    vintage = models.CharField(max_length=100)
-    color = models.CharField(max_length=100)
+    grape = models.CharField(max_length=100)
+    vintage = models.CharField(max_length=4)
+    color = models.CharField(max_length=5, choices=COLOR_CHOICES, default=RED)
     taste_notes = models.TextField(max_length=250)
     image_url = models.CharField(max_length=100)
     winery = models.ForeignKey(Winery, on_delete=models.CASCADE)

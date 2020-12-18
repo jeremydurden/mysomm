@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
 from .models import Wine, County
-from .forms import CreateWineryForm
+from .forms import CreateWineryForm, WineForm
 
 
 
@@ -68,7 +68,10 @@ def create_winery(request):
 
 def winery_detail(request, winery_id):
   winery = Winery.objects.get(id=winery_id)
-  return render(request, 'winery/detail.html', {"winery": winery})
+
+  wine_form = WineForm()
+
+  return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
 
 ######### WINES #########
@@ -83,6 +86,24 @@ def my_wines(request):
     # "my_wines": wines,
     # "selected_wine": selected_wine
   })
+
+
+def create_wine(request, winery_id):
+  form = WineForm(request.POST)
+  if form.is_valid():
+    new_wine = form.save(commit=False)
+    new_wine.winery_id = winery_id
+    new_wine.save()
+  return redirect('winery/<int:winery_id>', winery_id=winery_id)
+
+
+
+
+
+
+class WineDetail(DetailView):
+  model = Wine
+
 
 ######## GRAPES #########
 def my_grapes(request):
