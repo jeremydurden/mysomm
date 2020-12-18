@@ -2,7 +2,9 @@
 
 {% block body %}
 
-<h1>Winery Details</h1> <a href="{% url 'winery_update' winery.id %}"><button>Edit</button></a></br>
+<h1>Winery Details</h1> 
+<a href="{% url 'winery_update' winery.id %}"><button>Edit</button></a></br>
+<a href="{% url 'winery_delete' winery.id %}"><button>Delete</button></a></br>
 
 {{winery}}
 <br><br>
