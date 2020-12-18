@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 
 
@@ -51,6 +51,12 @@ class Wine(models.Model):
 
     def __str__(self):
         return f'{self.name} is a {self.vintage} {self.style} wine.'
+
+    def get_absolute_url(self):
+       # print(self.winery, 'this is the self.winery*******')
+        print(self.winery.id, 'this is the self.winery.id********')
+        return reverse('winery_detail', kwargs={'winery_id': self.winery.id})
+
     
 class Grape(models.Model):
     name = models.CharField(max_length=100)
