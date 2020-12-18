@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView, TemplateView, FormView
+from django.views.generic import ListView, DetailView, TemplateView, FormView, DeleteView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -31,7 +31,11 @@ def home(request, **kwargs):
   return render(request, 'wines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
 def profile(request):
-  return render(request, 'profile.html')
+  print('inside')
+  print(request.user.id)
+  my_wineries = Winery.objects.filter(user=request.user.id)
+
+  return render(request, 'profile.html', {'my_wineries': my_wineries})
 
 def glossary(request):
   return render(request, 'glossary.html')
@@ -67,10 +71,11 @@ def create_winery(request):
   return render(request, 'main_app/winery_form.html', {"form": form})
 
 def winery_detail(request, winery_id):
-  winery = Winery.objects.get(id=winery_id)
-
+  try:
+    winery = Winery.objects.get(id=winery_id)
+  except:
+    return redirect('profile')
   wine_form = WineForm()
-
   return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
 def winery_update(request, winery_id):
@@ -103,7 +108,11 @@ def winery_update(request, winery_id):
     'img_url': winery.img_url,
     'logo_url': winery.logo_url
     })
-  return render(request, 'main_app/winery_form.html', {"form": form})
+  return render(request, 'main_app/winery_form.html', {"form": form, "winery": winery})
+
+class WineryDelete(DeleteView):
+  model = Winery
+  success_url = '/profile/'
 
 ######### WINES #########
 def my_wines(request):
