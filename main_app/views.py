@@ -105,6 +105,15 @@ class WineDetail(DetailView):
   model = Wine
 
 
+class WineUpdate(UpdateView):
+  model = Wine
+  fields = ['style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url', ]
+
+
+
+
+
+
 ######## GRAPES #########
 def my_grapes(request):
   return render(request, 'mygrapes/index.html')
