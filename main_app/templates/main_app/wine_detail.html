@@ -12,8 +12,9 @@
 <div>{{wine.taste_notes}}</div>
 <img src="{{ wine.image_url }}" alt="picture of wine bottle" style="width: 80%; height: auto;"></div>
 
-
+<div>
 <a href="{% url 'wine_update' wine.id %}">Edit</a>
-
+<a href="{% url 'wines_delete' wine.id %}">Delete</a>
+</div>
 {% endblock %}
 
