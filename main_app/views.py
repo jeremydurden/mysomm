@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView, TemplateView, FormView
-from .models import Winery, Wine, Grape
+from .models import Profile, Winery, Wine, Grape, Glossary
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
@@ -33,6 +33,7 @@ def home(request, **kwargs):
   
   return render(request, 'findwines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
+
 def create_winery(request):
   if request.method == 'POST':
     form = CreateWineryForm(request.POST)
@@ -59,6 +60,27 @@ def create_winery(request):
 def winery_detail(request, winery_id):
   winery = Winery.objects.get(id=winery_id)
   return render(request, 'winery/detail.html', {"winery": winery})
+
+
+
+
+class MyProfile(CreateView):
+  model = Profile
+  fields = '__all__'
+# fields will be only relevant information (-fav wines) when available
+
+class MyWines(CreateView):
+  model = Wine
+  fields = '__all__'
+# fields will be switched to just the fav wines when available
+
+class GlossaryCreate(CreateView):
+  model = Glossary
+  fields = '__all__'
+
+
+
+
 
 def about(request):
   return render(request, 'about.html')
