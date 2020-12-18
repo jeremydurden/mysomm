@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h1>Winery</h1>
+<h1>Winery Details</h1>
 
 {{winery}}
 <br><br>
@@ -12,9 +12,14 @@
             <li>
             <td><a href="{% url 'wines_detail' wine.id %}"><span style="font-style: italic;">{{wine.name}}</span> is a {{wine.vintage}} {{wine.style}}</a></td>
           </tr></li> <br>
-        {% endfor %}
+{% endfor %}
 
+<form action="{% url 'add_wine' winery.id %}" method="post">
+  {% csrf_token %}
+  {{ wine_form.as_p }}
+  <input type="submit" class="btn" value="Add Wine">
+</form>
+<br>
 
-<a href="">Add a Wine to you Winery</a>
 {% endblock %}
 
