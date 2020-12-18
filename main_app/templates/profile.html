@@ -4,5 +4,9 @@
 <h1><span>{{ user.username }}</span></h1>
 <h1><span>{{ user.first_name }}</span></h1>
 <h1><span>{{ user.last_name }}</span></h1>
+
+{% for winery in my_wineries %}
+    <div>{{winery.id}} - {{winery}}</div>
+{% endfor %}
 {% endif %}
 {% endblock %}

@@ -13,6 +13,7 @@ urlpatterns = [
     path('winery/create/', views.create_winery, name='winery_create'),
     path('winery/<int:winery_id>', views.winery_detail, name="winery_detail"),
     path('winery/<int:winery_id>/update/', views.winery_update, name='winery_update'),
+    path('winery/<int:pk>/delete/', views.WineryDelete.as_view(), name='winery_delete'),
     ### Wines ###
     path('findwines/', views.home, name='home'),
     path('mywines/', views.my_wines, name='my_wines'),
