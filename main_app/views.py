@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, TemplateView, FormView, D
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy, reverse
 from . import map_us
 from .models import Wine, County
 from .forms import WineryForm, WineForm
@@ -134,7 +135,7 @@ def create_wine(request, winery_id):
     new_wine = form.save(commit=False)
     new_wine.winery_id = winery_id
     new_wine.save()
-  return redirect('winery/<int:winery_id>', winery_id=winery_id)
+  return redirect('winery_detail', winery_id=winery_id)
   
 
 
@@ -152,8 +153,9 @@ class WineUpdate(UpdateView):
 
 class WineDelete(DeleteView):
   model = Wine
-  print(model.winery)
-  success_url = '/'
+  def get_success_url(self):
+    return redirect ('winery_detail', kwargs={'id':self.object.winery.id})
+
 
 
 
