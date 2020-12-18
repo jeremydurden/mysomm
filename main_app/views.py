@@ -94,7 +94,7 @@ def create_wine(request, winery_id):
     new_wine = form.save(commit=False)
     new_wine.winery_id = winery_id
     new_wine.save()
-  return redirect('winery/<int:winery_id>', winery_id=winery_id)
+  return redirect('winery_detail', winery_id=winery_id)
 
 
 

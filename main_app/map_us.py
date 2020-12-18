@@ -34,8 +34,10 @@ def render_map(query):
             name = '{0} - {1}'.format(lim[0],lim[1])))
 
     fig.update_layout(
+            height=500,
+            margin= {"r":0,"t":0,"l":0,"b":0},
             title_text = '2014 US city populations<br>(Click legend to toggle traces)',
-            showlegend = True,
+            showlegend = False,
             geo = dict(
                 scope = 'usa',
                 landcolor = 'rgb(217, 217, 217)',
