@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView, FormView
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from . import map_us
 from .models import Wine, County
+from .forms import CreateWineryForm
 
 
 
@@ -27,24 +28,37 @@ def home(request, **kwargs):
     })
 
 
-
   map_data= map_us.render_map(wine_query)
   #This is the logic for the map page
   
   return render(request, 'findwines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
+def create_winery(request):
+  if request.method == 'POST':
+    form = CreateWineryForm(request.POST)
+    if form.is_valid():
+      input_county = form.cleaned_data['county']
+      input_state = form.cleaned_data['state']
+      db_county = County.objects.get(name=input_county, state=input_state)
+      winery = Winery(
+        name = form.cleaned_data['name'],
+        address = form.cleaned_data['address'],
+        region = form.cleaned_data['region'],
+        county = db_county,
+        city = form.cleaned_data['city'],
+        zipcode = form.cleaned_data['zipcode'],
+        img_url = form.cleaned_data['img_url'],
+        logo_url = form.cleaned_data['logo_url'],
+        user = request.user
+      )
+      winery.save()
+      return redirect('winery_detail', winery_id=winery.id)
+  form = CreateWineryForm()
+  return render(request, 'main_app/winery_form.html', {"form": form})
 
-class WineryCreate(CreateView):
-  model = Winery
-  fields = ['name', 'address', 'region', 'city', 'zipcode', 'img_url', 'logo_url']
-
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
-
-
-
-
+def winery_detail(request, winery_id):
+  winery = Winery.objects.get(id=winery_id)
+  return render(request, 'winery/detail.html', {"winery": winery})
 
 def about(request):
   return render(request, 'about.html')
@@ -69,10 +83,6 @@ def find_wines(request):
 
 def find_wineries(request):
   return render(request, 'findwineries/index.html')
-
-
-  
-  
   
 
 def signup(request):
