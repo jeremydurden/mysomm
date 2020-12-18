@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>Wine Details</h1>
+
+<div>{{wine.name}}</div>
+<div>{{wine.style}}</div>
+<div>{{wine.grape}}</div>
+<div>{{wine.vintage}}</div>
+<div>{{wine.color}}</div>
+<div>{{wine.taste_notes}}</div>
+<img src="{{ wine.img_url }}" alt="picture of wine bottle"></div>
+
+
+{% endblock %}
+
+<div>
+    <img src="{{ wine.img_url }}" alt="picture of wine bottle">
+</div>

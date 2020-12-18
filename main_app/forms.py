@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ModelForm
+from .models import Wine
 
 class CreateWineryForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -10,3 +12,12 @@ class CreateWineryForm(forms.Form):
     zipcode = forms.CharField(max_length=5)
     img_url = forms.CharField(max_length=100)
     logo_url = forms.CharField(max_length=100)
+
+
+
+
+class WineForm(ModelForm):
+    class Meta:
+        model = Wine
+        fields = ['name', 'style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url']
+
