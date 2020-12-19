@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1>Delete Wine</h1>
+
+  <h4>Are you sure you want to delete <span style="font-style: italic;">{{ object.name }}</span>?</h4>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Delete!" class="btn">
+    <a href="">Cancel</a>
+  </form>
+{% endblock %}

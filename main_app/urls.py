@@ -20,7 +20,7 @@ urlpatterns = [
     path('wines/<int:pk>/', views.WineDetail.as_view(), name='wines_detail'),
     path('winery/<int:winery_id>/add_wine/', views.create_wine, name='add_wine'),
     path('wine/<int:pk>/update/', views.WineUpdate.as_view(), name='wine_update'),
-
+    path('wine/<int:pk>/delete/', views.WineDelete.as_view(), name='wines_delete'),
     ### Grapes ###
     path('mygrapes/', views.my_grapes, name='my_grapes'),
 ]

@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, TemplateView, FormView, D
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy, reverse
 from . import map_us
 from .models import Wine, County
 from .forms import WineryForm, WineForm
@@ -150,6 +151,10 @@ class WineUpdate(UpdateView):
   model = Wine
   fields = ['style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url', ]
 
+class WineDelete(DeleteView):
+  model = Wine
+  def get_success_url(self):
+    return reverse ('winery_detail', args={self.object.winery.id})
 
 
 
