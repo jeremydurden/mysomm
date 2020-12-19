@@ -154,7 +154,7 @@ class WineUpdate(UpdateView):
 class WineDelete(DeleteView):
   model = Wine
   def get_success_url(self):
-    return redirect ('winery_detail', kwargs={'id':self.object.winery.id})
+    return reverse ('winery_detail', args={self.object.winery.id})
 
 
 
