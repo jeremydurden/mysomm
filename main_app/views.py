@@ -29,7 +29,7 @@ def home(request, **kwargs):
     })
   map_data= map_us.render_map(wine_query)
   #This is the logic for the map page
-  return render(request, 'wines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
+  return render(request, 'index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
 def profile(request):
   my_wineries = Winery.objects.filter(user=request.user.id)
@@ -115,6 +115,10 @@ class WineryDelete(DeleteView):
   model = Winery
   success_url = '/profile/'
 
+
+def winery_search(request):
+  pass
+
 ######### WINES #########
 def my_wines(request):
   # wines = Wine.objects.filter(user=request.user)
@@ -155,6 +159,9 @@ class WineDelete(DeleteView):
   model = Wine
   def get_success_url(self):
     return reverse ('winery_detail', args={self.object.winery.id})
+
+def wine_search(request):
+  pass
 
 
 

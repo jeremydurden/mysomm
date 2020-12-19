@@ -12,7 +12,7 @@
 {% for wine in winery.wine_set.all %}
           <tr>
             <li>
-            <td><a href="{% url 'wines_detail' wine.id %}"><span style="font-style: italic;">{{wine.name}}</span> is a {{wine.vintage}} {{wine.style}}</a></td>
+            <td><a href="{% url 'wine_detail' wine.id %}"><span style="font-style: italic;">{{wine.name}}</span> is a {{wine.vintage}} {{wine.style}}</a></td>
           </tr></li> <br>
 {% endfor %}
 

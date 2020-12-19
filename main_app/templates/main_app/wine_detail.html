@@ -18,7 +18,7 @@
     {% for other_wine in wine.winery.wine_set.all %}
         {% if other_wine.id != wine.id %}
             <div>
-                <a href="{% url 'wines_detail' other_wine.id %}"><span style="font-style: italic;">{{other_wine.name}}</span> is a {{other_wine.vintage}} {{other_wine.style}}</a>
+                <a href="{% url 'wine_detail' other_wine.id %}"><span style="font-style: italic;">{{other_wine.name}}</span> is a {{other_wine.vintage}} {{other_wine.style}}</a>
             </div>
         {% endif%}
     {% endfor %}
@@ -26,7 +26,7 @@
 
 
 <a href="{% url 'wine_update' wine.id %}">Edit</a>
-<a href="{% url 'wines_delete' wine.id %}">Delete</a>
+<a href="{% url 'wine_delete' wine.id %}">Delete</a>
 </div>
 {% endblock %}
 
