@@ -7,7 +7,8 @@
             <div class="input-group">
                 <button class="search-toggle-btn" id="winery-toggle-btn">Search for Wineries</button>
                 <button class="search-toggle-btn" id="wine-toggle-btn"> Search for Wines</button>
-                <form id="winery-search-form" class="hidden" action="{% url 'wine_search' %}" method="POST">
+                <form id="wine-search-form" class="hidden">
+                    {% csrf_token %}
                     <input type="text" name="name" class="form-control" placeholder="Wine Name">
                     <input type="text" name="style" class="form-control" placeholder="Style">
                     <input type="text" name="grape" class="form-control" placeholder="Grape">
@@ -19,7 +20,8 @@
                     </button>
                 </form>
                 <!-- Search for Wineries -->
-                <form id="wine-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
+                <form id="winery-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
+                    {% csrf_token %}
                     <input type="text" name="name" class="form-control" placeholder="Winery Name">
                     <input type="text" name="region" class="form-control" placeholder="Region">
                     <input type="text" name="county" class="form-control" placeholder="County">
@@ -105,5 +107,8 @@
     <div class="col" id="map_content">
         {{ plot|safe }}
     </div>
+
 </div>
+<!-- Results Table -->
+{% include 'search-results.html'    %}
 {% endblock %}

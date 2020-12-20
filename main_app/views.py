@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView, TemplateView, FormView, DeleteView
 from .models import Winery, Wine, Grape
@@ -119,6 +120,8 @@ class WineryDelete(DeleteView):
 def winery_search(request):
   pass
 
+  return render(request, 'index.html')
+
 ######### WINES #########
 def my_wines(request):
   # wines = Wine.objects.filter(user=request.user)
@@ -142,11 +145,6 @@ def create_wine(request, winery_id):
   return redirect('winery_detail', winery_id=winery_id)
   
 
-
-
-
-
-
 class WineDetail(DetailView):
   model = Wine
 
@@ -161,9 +159,21 @@ class WineDelete(DeleteView):
     return reverse ('winery_detail', args={self.object.winery.id})
 
 def wine_search(request):
-  pass
-
-
+  if request.is_ajax() and request.method == "GET":
+    filter_terms = {}
+    for item in request.GET.items():
+      if item[1] != "" and item[0] != 'csrfmiddlewaretoken':
+        if item[0] == "min_year":
+          filter_terms['vintage__gte'] = item[1]
+        elif item[0] == "max_year":
+          filter_terms['vintage__lte'] = item[1]
+        else:
+          filter_terms[item[0]] = item[1]
+    wines = Wine.objects.filter(**filter_terms)[:10].values('name', 'grape', 'color', 'vintage')
+    wine_results = list(wines)
+    return JsonResponse(wine_results,safe=False)
+  return JsonResponse({}, status=400)
+  
 
 
 
