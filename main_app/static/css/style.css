@@ -1,6 +1,10 @@
 body {
     font-family: 'Gabriela', serif;
-    min-width: 450px;
+}
+#body {
+min-width: 450px;
+background-color: #C4C4C4;
+
 }
 header {
     color: #C4C4C4;
