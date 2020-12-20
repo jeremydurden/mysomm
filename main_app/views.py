@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy, reverse
 from . import map_us
 from .models import Wine, County
-from .forms import WineryForm, WineForm
+from .forms import WineryForm, WineForm, WineSearchForm, WinerySearchForm
 
 
 
@@ -29,8 +29,14 @@ def home(request, **kwargs):
       "count": len(county_wines)
     })
   map_data= map_us.render_map(wine_query)
-  #This is the logic for the map page
-  return render(request, 'index.html', context= {"selected_wines": selected_wines, "plot": map_data})
+  wine_search_form = WineSearchForm(auto_id='id_%s_wine')
+  winery_search_form = WinerySearchForm(auto_id='id_%s_winery')
+  return render(request, 'index.html', context= {
+    "selected_wines": selected_wines,
+    "plot": map_data,
+    "wine_form": wine_search_form,
+    "winery_form": winery_search_form,
+    })
 
 def profile(request):
   my_wineries = Winery.objects.filter(user=request.user.id)
@@ -118,9 +124,32 @@ class WineryDelete(DeleteView):
 
 
 def winery_search(request):
-  pass
-
-  return render(request, 'index.html')
+  if request.is_ajax() and request.method == "GET":
+    filter_terms = {}
+    location = {}
+    for item in request.GET.items():
+      if item[1] != "" and item[0] != 'csrfmiddlewaretoken':
+        if item[0] == "county":
+          location['county'] = item[1]
+        elif item[0] == "state":
+          location['state'] = item[1]
+        else:
+          query = item[0] + "__icontains"
+          filter_terms[query] = item[1]
+    if len(location) == 2:
+      try:
+        county = County.objects.get(name__iexact=location['county'], state__iexact=location['state'])
+        filter_terms['county'] = county.id
+      except:
+        pass
+    wineries = Winery.objects.filter(**filter_terms)[:10].values('name', 'region', 'county')
+    winery_results = list(wineries)
+    for winery in winery_results:
+      dbcounty = County.objects.get(pk=winery['county'])
+      winery['county'] = dbcounty.name
+      winery['state'] = dbcounty.state
+    return JsonResponse(winery_results,safe=False)
+  return JsonResponse({}, status=400)
 
 ######### WINES #########
 def my_wines(request):
@@ -168,9 +197,16 @@ def wine_search(request):
         elif item[0] == "max_year":
           filter_terms['vintage__lte'] = item[1]
         else:
-          filter_terms[item[0]] = item[1]
+          query = item[0] + "__icontains"
+          filter_terms[query] = item[1]
     wines = Wine.objects.filter(**filter_terms)[:10].values('name', 'grape', 'color', 'vintage')
     wine_results = list(wines)
+    colors = {}
+    for c in Wine.COLOR_CHOICES:
+      if c[0] != "":
+        colors[c[0]] = c[1]
+    for wine in wine_results:
+      wine['color'] = colors[wine['color']]
     return JsonResponse(wine_results,safe=False)
   return JsonResponse({}, status=400)
   
