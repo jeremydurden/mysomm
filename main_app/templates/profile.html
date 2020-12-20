@@ -1,30 +1,38 @@
 {% extends "base.html" %}
 {% block body %}
 {% if user %}
+<div class="row">
+    <div class="col">
 <div class="row"><h1><span>MyProfile.</span></h1></div>
 <br>
-<div class="row"><h2><span>Username: {{ user.username }}</span></h2></div>
-<div class="row"><h2><span>First Name: {{ user.first_name }}</span></h2></div>
-<div class="row"><h2><span>Last Name: {{ user.last_name }}</span></h2></div>
+<div class="row"><h2><span><strong>Username: </strong>{{ user.username }}</span></h2></div>
+<div class="row"><h2><span><strong>First Name: </strong>{{ user.first_name }}</span></h2></div>
+<div class="row"><h2><span><strong>Last Name: </strong>{{ user.last_name }}</span></h2></div>
 <br>
-<br>
-<br>
-<div class="row"><h3><a href="/winery/create">Add Winery</a> to map list.</h3></div>
-<br>
-<div class="row"><h1>My Wineries:</h1></div>
-<br>
-<div class="row">
-    <div class="col-sm-1"><h4>Id</h4></div>
-    <div class="col-sm-10"><h4>Name and Address</h4></div>
-</div>
-<p>_________________________________________________________________________</p>
-{% for winery in my_wineries %}
+        <div class="row"><h3><a href="/winery/create">AddWinery.</a> to map list.</h3></div>
+    <br>
+        <br>
 
+    </div>
+
+<div class="col">
+<div class="row"><h1>MyWineries.</h1></div>
+<br>
 <div class="row">
+    <div class="col-sm-1"><h4><strong>Id</strong></h4></div>
+    <div class="col-sm-10"><h4><strong>Name and Address</strong></h4></div>
+</div>
+
+{% for winery in my_wineries %}
+<div class="row">
+    <p>_________________________________________________________________________</p>
     <div class="col-sm-1">{{winery.id}}</div>
     <div class="col-sm-10">{{winery}}</div>
 </div>
-
 {% endfor %}
+
+<p>_________________________________________________________________________</p>
+</div>
+</div>
 {% endif %}
 {% endblock %}
