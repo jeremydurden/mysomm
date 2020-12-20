@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, TemplateView, FormView, D
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy, reverse
 from . import map_us
 from .models import Wine, County
 from .forms import WineryForm, WineForm
@@ -28,11 +29,9 @@ def home(request, **kwargs):
     })
   map_data= map_us.render_map(wine_query)
   #This is the logic for the map page
-  return render(request, 'wines/index.html', context= {"selected_wines": selected_wines, "plot": map_data})
+  return render(request, 'index.html', context= {"selected_wines": selected_wines, "plot": map_data})
 
 def profile(request):
-  print('inside')
-  print(request.user.id)
   my_wineries = Winery.objects.filter(user=request.user.id)
 
   return render(request, 'profile.html', {'my_wineries': my_wineries})
@@ -79,6 +78,8 @@ def winery_detail(request, winery_id):
   return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
 def winery_update(request, winery_id):
+  ##Check to see if user owns winery, 
+  ## if not redirect
   winery = Winery.objects.get(pk=winery_id)
   if request.method == 'POST':
     form = WineryForm(request.POST)
@@ -114,6 +115,10 @@ class WineryDelete(DeleteView):
   model = Winery
   success_url = '/profile/'
 
+
+def winery_search(request):
+  pass
+
 ######### WINES #########
 def my_wines(request):
   # wines = Wine.objects.filter(user=request.user)
@@ -134,7 +139,7 @@ def create_wine(request, winery_id):
     new_wine = form.save(commit=False)
     new_wine.winery_id = winery_id
     new_wine.save()
-  return redirect('winery/<int:winery_id>', winery_id=winery_id)
+  return redirect('winery_detail', winery_id=winery_id)
   
 
 
@@ -150,6 +155,13 @@ class WineUpdate(UpdateView):
   model = Wine
   fields = ['style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url', ]
 
+class WineDelete(DeleteView):
+  model = Wine
+  def get_success_url(self):
+    return reverse ('winery_detail', args={self.object.winery.id})
+
+def wine_search(request):
+  pass
 
 
 

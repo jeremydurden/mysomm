@@ -62,3 +62,20 @@ display: none;
     position: sticky; /* Supported in latest version of Chrome, Firefox, Safari, Opera and Edge browsers */
     top: 15px;
 }
+
+.hidden {
+    display: none;
+}
+
+.search-toggle-btn {
+    display: inline;
+}
+
+#wine-search-form, #winery-search-form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#wine-search-form button, #winery-search-form button {
+    margin-top: 10px;
+}

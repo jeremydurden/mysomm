@@ -24,11 +24,19 @@
 </div>
 
 {% for winery in my_wineries %}
+
 <div class="row">
     <p>_________________________________________________________________________</p>
     <div class="col-sm-1">{{winery.id}}</div>
     <div class="col-sm-10">{{winery}}</div>
 </div>
+
+    <div>
+        <a href="{% url 'winery_detail' winery.id %}">
+            <b>{{ winery.name }}</b> {{ winery.city }} {{ winery.county.state }}
+        </a>
+    </div>
+
 {% endfor %}
 
 <p>_________________________________________________________________________</p>
