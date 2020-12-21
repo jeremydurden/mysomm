@@ -60,7 +60,7 @@ def create_winery(request):
     if form.is_valid():
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
-      db_county = County.objects.get(name=input_county, state=input_state)
+      db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
       winery = Winery(
         name = form.cleaned_data['name'],
         address = form.cleaned_data['address'],
@@ -94,7 +94,7 @@ def winery_update(request, winery_id):
     if form.is_valid():
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
-      db_county = County.objects.get(name=input_county, state=input_state)
+      db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
       winery.name = form.cleaned_data['name']
       winery.address = form.cleaned_data['address']
       winery.region = form.cleaned_data['region']
@@ -143,7 +143,7 @@ def winery_search(request):
         filter_terms['county'] = county.id
       except:
         pass
-    wineries = Winery.objects.filter(**filter_terms)[:10].values('name', 'region', 'county')
+    wineries = Winery.objects.filter(**filter_terms)[:10].values('name', 'region', 'county', 'id')
     winery_results = list(wineries)
     for winery in winery_results:
       dbcounty = County.objects.get(pk=winery['county'])
@@ -200,7 +200,7 @@ def wine_search(request):
         else:
           query = item[0] + "__icontains"
           filter_terms[query] = item[1]
-    wines = Wine.objects.filter(**filter_terms)[:10].values('name', 'grape', 'color', 'vintage')
+    wines = Wine.objects.filter(**filter_terms)[:10].values('name', 'grape', 'color', 'vintage', 'id')
     wine_results = list(wines)
     colors = {}
     for c in Wine.COLOR_CHOICES:

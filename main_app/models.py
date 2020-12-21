@@ -33,9 +33,9 @@ class Winery(models.Model):
     region = models.CharField(max_length=100)
     county = models.ForeignKey(County, on_delete=models.SET_NULL, null=True)
     city = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=5)
-    img_url = models.CharField(max_length=100)
-    logo_url = models.CharField(max_length=100)
+    zipcode = models.CharField(max_length=5, null=True)
+    img_url = models.CharField(max_length=100, null=True)
+    logo_url = models.CharField(max_length=100, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -54,12 +54,12 @@ class Wine(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    style = models.CharField(max_length=100)
-    grape = models.CharField(max_length=100)
-    vintage = models.CharField(max_length=4)
-    color = models.CharField(max_length=5, choices=COLOR_CHOICES, default=RED)
-    taste_notes = models.TextField(max_length=250)
-    image_url = models.CharField(max_length=100)
+    style = models.CharField(max_length=100, null=True)
+    grape = models.CharField(max_length=100, null=True)
+    vintage = models.CharField(max_length=4, null=True)
+    color = models.CharField(max_length=5, choices=COLOR_CHOICES, default=RED, null=True)
+    taste_notes = models.TextField(max_length=250, null=True)
+    image_url = models.CharField(max_length=100, null=True)
     winery = models.ForeignKey(Winery, on_delete=models.CASCADE)
 
     def __str__(self):
