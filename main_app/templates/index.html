@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 {% block body %}
-
-
-
 <div class="row" id="search_dropdowns">
 <!-- Search for Wines -->
     <div class="col">
@@ -45,18 +42,10 @@
         </div>
     </div>
 </div>
-
-
-
-
 <!--   Render Map     -->
 <div class="col" id="map_content">
     {{ plot|safe }}
 </div>
-
-
-
-
 <!-- Results Table -->
 {% include 'search-results.html' %}
 {% endblock %}

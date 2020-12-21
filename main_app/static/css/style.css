@@ -80,3 +80,11 @@ display: none;
 #wine-search-form button, #winery-search-form button {
     margin-top: 10px;
 }
+
+#wine-search-form label, #winery-search-form label {
+    display: none;
+}
+
+.form-placeholder, .form-placeholder:focus {
+    color: #6c757d;
+}

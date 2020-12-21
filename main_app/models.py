@@ -1,6 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import  AbstractUser
+
 from django.urls import reverse
+
+
+class User(AbstractUser):
+    is_vintner = models.BooleanField(default=False)
+    is_enthusiast = models.BooleanField(default=False)
+
+class Vintner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+class Enthusiast(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
 
 
@@ -35,6 +47,7 @@ class Wine(models.Model):
     WHITE = 'WH'
     ROSE = 'RS'
     COLOR_CHOICES = [
+        ('', 'Color'), ## Allows for blanks in search and dropdowns
         (RED, 'Red'),
         (WHITE, 'White'),
         (ROSE, 'Rosé'),

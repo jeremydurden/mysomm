@@ -5,6 +5,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('accounts/signup/vintner', views.VintnerSignUpView.as_view(), name='vintner_signup'),
+    path('accounts/signup/enthusiast', views.EnthusiastSignUpView.as_view(), name='enthusiast_signup'),
     path('glossary/', views.glossary, name='glossary'),
     path('profile/', views.profile, name='profile'),
 
