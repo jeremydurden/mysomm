@@ -9,6 +9,7 @@
 <div class="row"><h2><span><strong>First Name: </strong>{{ user.first_name }}</span></h2></div>
 <div class="row"><h2><span><strong>Last Name: </strong>{{ user.last_name }}</span></h2></div>
 <br>
+{% if user.is_authenticated and user.is_vintner or user.is_superuser %}
         <div class="row"><h3><a href="/winery/create">AddWinery.</a> to map list.</h3></div>
     <br>
         <br>
@@ -22,7 +23,7 @@
     <div class="col-sm-1"><h4><strong>Id</strong></h4></div>
     <div class="col-sm-10"><h4><strong>Name and Address</strong></h4></div>
 </div>
-
+{% endif %}
 {% for winery in my_wineries %}
 
 <div class="row">
@@ -42,5 +43,9 @@
 <p>_________________________________________________________________________</p>
 </div>
 </div>
+{% else %}
+<p>Not a vintner</p>
 {% endif %}
+
+
 {% endblock %}

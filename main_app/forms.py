@@ -2,6 +2,9 @@ from django import forms
 from django.forms import ModelForm
 from .models import Wine, Winery
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class WineryForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -35,3 +38,29 @@ class WinerySearchForm(forms.Form):
     region = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'placeholder':'Region', 'class': 'form-control'}))
     county = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'placeholder':'County', 'class': 'form-control'}))
     state = forms.CharField(max_length=2, required=False, widget=forms.TextInput(attrs={'placeholder':'State', 'class': 'form-control'}))
+
+
+
+class VintnerSignUpForm(UserCreationForm):
+    
+    class Meta(UserCreationForm.Meta):
+        model = User
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_vintner = True
+        if commit:
+            user.save()
+        return user
+
+class EnthusiastSignUpForm(UserCreationForm):
+    
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_enthusiast = True
+        if commit:
+            user.save()
+        return user

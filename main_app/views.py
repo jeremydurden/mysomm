@@ -5,12 +5,13 @@ from django.views.generic import ListView, DetailView, TemplateView, FormView, D
 from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy, reverse
 from . import map_us
 from .models import Wine, County
-from .forms import WineryForm, WineForm, WineSearchForm, WinerySearchForm
+from .forms import WineryForm, WineForm, WineSearchForm, WinerySearchForm, VintnerSignUpForm, EnthusiastSignUpForm
 
-
+User = get_user_model()
 
 # Create your views here.
 def home(request, **kwargs):
@@ -219,23 +220,50 @@ def my_grapes(request):
 
 
   
-###### REGISTRATION ###########
+##### REGISTRATION ###########
 def signup(request):
-  error_message = ''
-  if request.method == 'POST':
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      # This will add the user to the database
-      user = form.save()
-      # This is how we log a user in via code
-      login(request, user)
-      return redirect('about')
-    else:
-      error_message = 'Invalid sign up - try again'
-  # A bad POST or a GET request, so render signup.html with an empty form
-  form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)
+  # error_message = ''
+  # if request.method == 'POST':
+  #   # This is how to create a 'user' form object
+  #   # that includes the data from the browser
+  #   form = UserCreationForm(request.POST)
+  #   if form.is_valid():
+  #     # This will add the user to the database
+  #     user = form.save()
+  #     # This is how we log a user in via code
+  #     login(request, user)
+  #     return redirect('about')
+  #   else:
+  #     error_message = 'Invalid sign up - try again'
+  # # A bad POST or a GET request, so render signup.html with an empty form
+  # form = UserCreationForm()
+  # context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html')
 
+class VintnerSignUpView(CreateView):
+  model = User
+  form_class = VintnerSignUpForm
+  template_name = 'registration/vintner.html'
+  
+  def get_context_data(self, **kwargs):
+    kwargs['user_type'] = 'vintner'
+    return super().get_context_data(**kwargs)
+  
+  def form_valid(self, form):
+    user = form.save()
+    login(self.request, user)
+    return redirect('home')
+
+class EnthusiastSignUpView(CreateView):
+    model = User
+    form_class = EnthusiastSignUpForm
+    template_name = 'registration/enthusiast.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'teacher'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
