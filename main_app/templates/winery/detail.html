@@ -15,7 +15,6 @@
             <td><a href="{% url 'wine_detail' wine.id %}"><span style="font-style: italic;">{{wine.name}}</span> is a {{wine.vintage}} {{wine.style}}</a></td>
           </tr></li> <br>
 {% endfor %}
-
 <form action="{% url 'add_wine' winery.id %}" method="post">
   {% csrf_token %}
   {{ wine_form.as_p }}

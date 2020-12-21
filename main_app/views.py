@@ -22,13 +22,14 @@ def home(request, **kwargs):
   wine_query =  []
   for county in County.objects.all():
     county_wines = selected_wines.filter(winery__county = county)
-    wine_query.append({
-      "name": county.name,
-      "state": county.state,
-      "lat": county.lat,
-      "lon": county.lon,
-      "count": len(county_wines)
-    })
+    if len(county_wines) > 0:
+      wine_query.append({
+        "name": county.name,
+        "state": county.state,
+        "lat": county.lat,
+        "lon": county.lon,
+        "count": len(county_wines)
+      })
   map_data= map_us.render_map(wine_query)
   wine_search_form = WineSearchForm(auto_id='id_%s_wine')
   winery_search_form = WinerySearchForm(auto_id='id_%s_winery')
@@ -58,13 +59,13 @@ def create_winery(request):
   if request.method == 'POST':
     form = WineryForm(request.POST)
     if form.is_valid():
-      input_county = form.cleaned_data['county']
-      input_state = form.cleaned_data['state']
       try: 
         db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
       except:
         error = "County not found. Please try again."
         return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
+      input_county = form.cleaned_data['county']
+      input_state = form.cleaned_data['state']
       winery = Winery(
         name = form.cleaned_data['name'],
         address = form.cleaned_data['address'],
@@ -96,9 +97,13 @@ def winery_update(request, winery_id):
   if request.method == 'POST':
     form = WineryForm(request.POST)
     if form.is_valid():
+      try: 
+        db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+      except:
+        error = "County not found. Please try again."
+        return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
-      db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
       winery.name = form.cleaned_data['name']
       winery.address = form.cleaned_data['address']
       winery.region = form.cleaned_data['region']
