@@ -6,14 +6,9 @@
         <div class="btn-group">
             <button type="button" id="wine-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wines</button>
             <div class="dropdown-menu">
-                <input form="wine-search-form" type="text" name="name" class="form-control active" placeholder="Wine Name">
-                <input form="wine-search-form" type="text" name="style" class="form-control" placeholder="Style">
-                <input form="wine-search-form" type="text" name="grape" class="form-control" placeholder="Grape">
-                <input form="wine-search-form" type="number" max="9999" min="1000" name="min_year" class="form-control" placeholder="Min Year">
-                <input form="wine-search-form" type="number" max="9999" min="1000" name="max_year" class="form-control" placeholder="Max Year">
-                <input form="wine-search-form" type="text" name="color" class="form-control" placeholder="Color">
                 <form id="wine-search-form" class="hidden">
                     {% csrf_token %}
+                    {{ wine_form }}
                     <button type="submit" class="btn btn-secondary">
                         Search <i class="fa fa-search"></i>
                     </button>
@@ -26,14 +21,9 @@
         <div class="btn-group">
             <button type="button" id="winery-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wineries</button>
             <div class="dropdown-menu">
-                <input form="winery-search-form" type="text" name="name" class="form-control" placeholder="Winery Name">
-                <input form="winery-search-form" type="text" name="region" class="form-control" placeholder="Region">
-                <input form="winery-search-form" type="text" name="grape" class="form-control" placeholder="Grape">
-                <input form="winery-search-form" type="text" name="county" class="form-control" placeholder="County">
-                <input form="winery-search-form" type="text" name="state" class="form-control" placeholder="State">
-                <input form="winery-search-form" type="text" name="color" class="form-control" placeholder="Color">
                 <form id="winery-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
                     {% csrf_token %}
+                    {{ winery_form }}
                     <button type="submit" class="btn btn-secondary">
                         Search <i class="fa fa-search"></i>
                     </button>
