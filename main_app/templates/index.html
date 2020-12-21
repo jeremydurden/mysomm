@@ -33,6 +33,7 @@
     </div>
 </div>
 <!--   Render Map     -->
+<div id="csrf"> {% csrf_token %}</div>
 <div class="col" id="map_content">
     {{ plot|safe }}
 </div>
