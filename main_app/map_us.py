@@ -3,17 +3,15 @@ from plotly.offline import plot
 import pandas as pd
 
 def render_map(query):
-  
     df=pd.DataFrame(query)
     df.head()
-    df['text'] = "Our Wines"
+    df['text'] = "MySomm Wines"
     limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
     colors = ["royalblue","crimson","lightseagreen","orange","lightgrey"]
     cities = []
-    scale = 5000
+    scale = .01
 
     fig = go.Figure()
-
   
     for i in range(len(limits)):
         lim = limits[i]
@@ -24,17 +22,20 @@ def render_map(query):
             lat = df_sub['lat'] if query else None,
             text = df_sub['text'] if query else None,
             marker = dict(
-                size = df_sub['count']/scale if query else 2,
+                size = df_sub['count']/scale if query else 0,
                 color = colors[i],
                 line_color='rgb(200,200,200)',
                 line_width=0.5,
                 sizemode = 'area'
             ),
-            name = '{0} - {1}'.format(lim[0],lim[1])))
+            name = '',
+            hovertemplate= (df_sub['count']).astype(str) + ' wines in ' + df_sub['name'] + ' County' if query else None,
+            customdata = df_sub['county_id']
+            ))
 
     fig.update_layout(
         margin= {"r":20,"t":20,"l":20,"b":20},
-        title_text = '2014 US city populations<br>(Click legend to toggle traces)',
+        title_text = 'MySomm Wines',
         showlegend = False,
         paper_bgcolor = 'rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
