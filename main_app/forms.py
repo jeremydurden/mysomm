@@ -68,6 +68,8 @@ class EnthusiastSignUpForm(UserCreationForm):
     
     class Meta(UserCreationForm.Meta):
         model = User
+        fields = ['username', 'first_name', 'last_name']
+        field_order = ['username', 'password', 'first_name', 'last_name']
 
     def save(self, commit=True):
         user = super().save(commit=False)
