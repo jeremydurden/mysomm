@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+<<<<<<< HEAD
 {% load static %}
+=======
+
+>>>>>>> e0e244aaea091f647538fa9ae700308f04dd5b3a
 {% block body %}
 <div class="row" id="search_dropdowns">
 <!-- Search for Wines -->
@@ -33,13 +37,24 @@
         </div>
     </div>
 </div>
+<!-- Results Table -->
+{% include 'search-results.html' %}
+{% endblock %}
+
+
+{% block map %}
 <!--   Render Map     -->
 <div id="csrf"> {% csrf_token %}</div>
 <div class="col" id="map_content">
     {{ plot|safe }}
 </div>
+<<<<<<< HEAD
 <!-- Results Table -->
 {% include 'search-results.html' %}
 
 <script defer src="{% static 'js/script.js' %}"></script>
 {% endblock %}
+=======
+{% endblock %}
+
+>>>>>>> e0e244aaea091f647538fa9ae700308f04dd5b3a

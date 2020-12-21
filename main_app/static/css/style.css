@@ -11,6 +11,7 @@ header {
     background-color: #971313;
     height: 10%;
     font-size: larger;
+    width: 625px;
 }
 h1 {
     font-size: 350%;
@@ -51,7 +52,11 @@ display: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
     margin: 0 auto;
+<<<<<<< HEAD
     margin-top: -60px;
+=======
+    width: 425px;
+>>>>>>> e0e244aaea091f647538fa9ae700308f04dd5b3a
 }
 #map_content {
     margin: auto auto;

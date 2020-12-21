@@ -65,11 +65,15 @@
         </div>
     </div>
 </nav>
+
 <div class="container-fluid" id="content_bkg">
     <div class="container"> 
         {% block body %}
         {% endblock %}
     </div>
+    {% block map %}
+    {% endblock %}
 </div>
+
     </body>
 </html>
