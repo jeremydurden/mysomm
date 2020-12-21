@@ -34,7 +34,7 @@
                 <div>
                     {% if user.is_authenticated %}
                     <div class="row">
-                        <div class="col-sm"><a href="{% url 'profile' %}" class="nav-button nav-item nav-link" id="profile_btn">{{ user.username }}</a></div>
+                        <div class="col-sm"><a href="{% url 'profile' %}" class="nav-button nav-item nav-link" id="profile_btn">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</a></div>
                     </div>
                     <div class="col-sm"><a href="{% url 'logout' %}" class="nav-button nav-item nav-link" id="logout_btn">Log Out</a></div>
                     {% else %}
