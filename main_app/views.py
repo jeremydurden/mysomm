@@ -163,15 +163,9 @@ def winery_search(request):
 
 ######### WINES #########
 def my_wines(request):
-  # wines = Wine.objects.filter(user=request.user)
-  #
-  # if request.wine_id:
-  #   selected_wine = Wine.objects.filter(pk=request.wine_id)
-  # else:
-  #   selected_wine = None
+  wines = Wine.objects.filter(winery__user=request.user)
   return render(request, 'wines/my_wines.html', {
-    # "my_wines": wines,
-    # "selected_wine": selected_wine
+    "my_wines": wines,
   })
 
 

@@ -23,7 +23,7 @@ def render_map(query):
             text = df_sub['text'] if query else None,
             marker = dict(
                 size = df_sub['count']/scale if query else 0,
-                color = colors[i],
+                color = 'rgb(151, 19, 19)',
                 line_color='rgb(200,200,200)',
                 line_width=0.5,
                 sizemode = 'area'
@@ -41,7 +41,7 @@ def render_map(query):
         plot_bgcolor='rgba(0,0,0,0)',
         geo = dict(
             scope = 'usa',
-            landcolor = 'rgb(230, 230, 230)',
+            landcolor = 'rgb(152, 162, 152)',
             lakecolor = 'rgba(0,0,0,0)',
             bgcolor = 'rgba(0,0,0,0)',
         )
