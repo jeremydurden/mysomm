@@ -46,7 +46,10 @@ WineSearchEl.addEventListener('submit', function(e){
         success: function (response) {
             WineryResultsHeaderEl.classList.add('hidden');
             SearchResultsEl.innerHTML = "";
+            // TODO add links
             response.forEach(function(wine){
+                let link = document.createElement('a');
+                link.href = "/wine/" + wine.id;
                 let tr = document.createElement('tr');
                 let name = document.createElement('td');
                 name.textContent = wine.name;
@@ -60,8 +63,9 @@ WineSearchEl.addEventListener('submit', function(e){
                 tr.appendChild(grape);
                 tr.appendChild(color);
                 tr.appendChild(vintage);
+                link.appendChild(tr);
                 WineResultsHeaderEl.classList.remove('hidden');
-                SearchResultsEl.appendChild(tr);
+                SearchResultsEl.appendChild(link);
             });
         },
         error: function (response) {
@@ -80,7 +84,10 @@ WinerySearchEl.addEventListener('submit', function(e){
         success: function (response) {
             WineResultsHeaderEl.classList.add('hidden');
             SearchResultsEl.innerHTML = "";
+             // TODO add links
             response.forEach(function(winery){
+                let link = document.createElement('a');
+                link.href = "/winery/" + winery.id;
                 let tr = document.createElement('tr');
                 let name = document.createElement('td');
                 name.textContent = winery.name;
@@ -94,8 +101,9 @@ WinerySearchEl.addEventListener('submit', function(e){
                 tr.appendChild(region);
                 tr.appendChild(county);
                 tr.appendChild(state);
+                link.appendChild(tr);
                 WineryResultsHeaderEl.classList.remove('hidden');
-                SearchResultsEl.appendChild(tr);
+                SearchResultsEl.appendChild(link);
             });
         },
         error: function (response) {

@@ -13,13 +13,20 @@ class WineryForm(forms.Form):
     county = forms.CharField(max_length=100)
     city = forms.CharField(max_length=100)
     state = forms.CharField(max_length=2)
-    zipcode = forms.CharField(max_length=5)
-    img_url = forms.CharField(max_length=100)
-    logo_url = forms.CharField(max_length=100)
+    zipcode = forms.CharField(max_length=5, required=False)
+    img_url = forms.CharField(max_length=100, required=False,)
+    logo_url = forms.CharField(max_length=100, required=False,)
 
 
 
 class WineForm(ModelForm):
+    style = forms.CharField(max_length=100, required=False)
+    grape = forms.CharField(max_length=100, required=False)
+    vintage = forms.CharField(max_length=4, required=False)
+    color = forms.CharField(max_length=5, required=False)
+    taste_notes = forms.CharField(max_length=250, required=False, widget=forms.Textarea)
+    image_url = forms.CharField(max_length=100, required=False)
+
     class Meta:
         model = Wine
         fields = ['name', 'style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url']
