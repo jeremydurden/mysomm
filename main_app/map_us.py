@@ -1,8 +1,6 @@
 import plotly.graph_objects as go
 from plotly.offline import plot
 import pandas as pd
-# from .models import Test_Data 
-# ANGIE -- you may need to import data here...if render map can't accept args
 
 def render_map(query):
   

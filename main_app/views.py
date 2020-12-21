@@ -15,7 +15,7 @@ User = get_user_model()
 
 # Create your views here.
 def home(request, **kwargs):
-  # If no query, then show all
+  #TODO If no query, then show all
   selected_wines = Wine.objects.all()
   # else show the search results
 
