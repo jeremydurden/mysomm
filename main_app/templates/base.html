@@ -34,12 +34,12 @@
                 <div>
                     {% if user.is_authenticated %}
                     <div class="row">
-                        <div class="col-sm"><a href="{% url 'profile' %}" class="nav-item nav-link">{{ user.username }}</a></div>
+                        <div class="col-sm"><a href="{% url 'profile' %}" class="nav-button nav-item nav-link" id="profile_btn">{{ user.username }}</a></div>
                     </div>
-                    <div class="col-sm"><a href="{% url 'logout' %}">Log Out</a></div>
+                    <div class="col-sm"><a href="{% url 'logout' %}" class="nav-button nav-item nav-link" id="logout_btn">Log Out</a></div>
                     {% else %}
-                    <div class="col-sm"><a href="{% url 'login' %}">Log In</a></div>
-                    <div class="col-sm"><a href="{% url 'signup' %}">Sign Up</a></div>
+                    <div class="col-sm"><a href="{% url 'login' %}" class="nav-button nav-item nav-link" id="login_btn">Log In</a></div>
+                    <div class="col-sm"><a href="{% url 'signup' %}" class="nav-button nav-item nav-link" id="signup_btn">Sign Up</a></div>
                     {% endif %}
                 </div>
             </div>
@@ -69,8 +69,6 @@
 </nav>
 <div class="container-fluid" id="content_bkg">
     <div class="container">
-        <br>
-        <br>
         {% block body %}
         {% endblock %}
     </div>

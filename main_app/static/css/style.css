@@ -22,9 +22,12 @@ h1 {
 .navbar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.nav-button {
+#profile_btn, #logout_btn, #login_btn, #signup_btn {
     margin: 0 10px;
     white-space: nowrap;
+    color: #C4C4C4;
+    text-decoration: none;
+    font-size: larger;
 }
 .navbar-nav {
     margin: 0 auto;
@@ -37,23 +40,21 @@ h1 {
 }
 #content_bkg {
     background-color: #C4C4C4;
-    min-height: 600px;
 }
 .g-gtitle, .infolayer, .modebar-container {
 display: none;
 }
-#info_content {
+#search_dropdowns {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
-    min-width: 350px;
-    max-width: 350px;
+    margin: 0 auto;
 }
 #map_content {
+    margin: auto auto;
     background: none;
-    max-width: 800px;
-    min-width: 500px;
+    width: 100%;
 }
 #scrollSpy {
 	position: relative; /* required */
