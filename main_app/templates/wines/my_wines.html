@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block body %}
-{% if user %}
-Favorite Wines!
-{% endif %}
+<h2>My Wines</h2>
+<ul>
+    {% for wine in my_wines %}
+        <li><a href="{% url 'wine_detail' wine.id %}" >{{wine.name}} </a> from {{ wine.winery.name }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}
