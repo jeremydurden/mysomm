@@ -1,98 +1,51 @@
 {% extends "base.html" %}
 {% block body %}
-<div class="row">
-    <div class="col" id="info_content">
-<!--   Search Input     -->
-        <div class="row">
-            <div class="input-group">
-                <button class="search-toggle-btn" id="winery-toggle-btn">Search for Wineries</button>
-                <button class="search-toggle-btn" id="wine-toggle-btn"> Search for Wines</button>
-                <!-- Search for Wines -->
+<div class="row" id="search_dropdowns">
+<!-- Search for Wines -->
+    <div class="col">
+        <div class="btn-group">
+            <button type="button" id="wine-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wines</button>
+            <div class="dropdown-menu">
+                <input form="wine-search-form" type="text" name="name" class="form-control active" placeholder="Wine Name">
+                <input form="wine-search-form" type="text" name="style" class="form-control" placeholder="Style">
+                <input form="wine-search-form" type="text" name="grape" class="form-control" placeholder="Grape">
+                <input form="wine-search-form" type="number" max="9999" min="1000" name="min_year" class="form-control" placeholder="Min Year">
+                <input form="wine-search-form" type="number" max="9999" min="1000" name="max_year" class="form-control" placeholder="Max Year">
+                <input form="wine-search-form" type="text" name="color" class="form-control" placeholder="Color">
                 <form id="wine-search-form" class="hidden">
                     {% csrf_token %}
-                    {{ wine_form }}
                     <button type="submit" class="btn btn-secondary">
                         Search <i class="fa fa-search"></i>
                     </button>
                 </form>
-                <!-- Search for Wineries -->
-                <form id="winery-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
-                    {% csrf_token %}
-                    {{ winery_form }}
-                    <button type="submit" class="btn btn-secondary">
-                        Search <i class="fa fa-search"></i>
-                    </button>
-                </form>
-            </div>
-<!--     List Of Search Items       -->
-            <div class="row">
-                <div class="accordion" id="myAccordion">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">Wine #1</button>
-                            </h2>
-                        </div>
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#myAccordion">
-                            <div class="card-body">
-                                <p>
-                                    Now, this is a story all about how
-                                    My life got flipped-turned upside down
-                                    And I'd like to take a minute
-                                    Just sit right there
-                                    I'll tell you how I became the prince of a town called Bel Air
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <h2 class="mb-0">
-                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">Wine #2</button>
-                            </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#myAccordion">
-                            <div class="card-body">
-                                <p>
-                                    In west Philadelphia born and raised
-                                    On the playground was where I spent most of my days
-                                    Chillin' out maxin' relaxin' all cool
-                                    And all shootin some b-ball outside of the school
-                                    When a couple of guys who were up to no good
-                                    Started making trouble in my neighborhood
-                                    I got in one little fight and my mom got scared
-                                    She said 'You're movin' with your auntie and uncle in Bel Air'
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">Wine #3</button>
-                            </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#myAccordion">
-                            <div class="card-body">
-                                <p>
-                                    I begged and pleaded with her day after day
-                                    But she packed my suit case and sent me on my way
-                                    She gave me a kiss and then she gave me my ticket.
-                                    I put my Walkman on and said, 'I might as well kick it'.…
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <!--   Render Map     -->
-    <div class="col" id="map_content">
-        {{ plot|safe }}
+    <div class="col">
+<!-- Search for Wineries -->
+        <div class="btn-group">
+            <button type="button" id="winery-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wineries</button>
+            <div class="dropdown-menu">
+                <input form="winery-search-form" type="text" name="name" class="form-control" placeholder="Winery Name">
+                <input form="winery-search-form" type="text" name="region" class="form-control" placeholder="Region">
+                <input form="winery-search-form" type="text" name="grape" class="form-control" placeholder="Grape">
+                <input form="winery-search-form" type="text" name="county" class="form-control" placeholder="County">
+                <input form="winery-search-form" type="text" name="state" class="form-control" placeholder="State">
+                <input form="winery-search-form" type="text" name="color" class="form-control" placeholder="Color">
+                <form id="winery-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">
+                        Search <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-
+</div>
+<!--   Render Map     -->
+<div class="col" id="map_content">
+    {{ plot|safe }}
 </div>
 <!-- Results Table -->
-{% include 'search-results.html'    %}
+{% include 'search-results.html' %}
 {% endblock %}

@@ -4,8 +4,6 @@ import pandas as pd
 # from .models import Test_Data 
 # ANGIE -- you may need to import data here...if render map can't accept args
 
-config = {'setBackground': 'none'}
-
 def render_map(query):
     df=pd.DataFrame(query)
     df.head()
@@ -35,17 +33,17 @@ def render_map(query):
             name = '{0} - {1}'.format(lim[0],lim[1])))
 
     fig.update_layout(
-            margin= {"r":0,"t":0,"l":0,"b":0},
-            title_text = '2014 US city populations<br>(Click legend to toggle traces)',
-            showlegend = False,
-            paper_bgcolor = 'rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            geo = dict(
-                scope = 'usa',
-                landcolor = 'rgb(230, 230, 230)',
-                lakecolor = 'rgba(0,0,0,0)',
-                bgcolor = 'rgba(0,0,0,0)',
-            )
+        margin= {"r":20,"t":20,"l":20,"b":20},
+        title_text = '2014 US city populations<br>(Click legend to toggle traces)',
+        showlegend = False,
+        paper_bgcolor = 'rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        geo = dict(
+            scope = 'usa',
+            landcolor = 'rgb(230, 230, 230)',
+            lakecolor = 'rgba(0,0,0,0)',
+            bgcolor = 'rgba(0,0,0,0)',
         )
-    plot_div = plot(fig, output_type='div', include_plotlyjs=False, config=config)
+    )
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div
