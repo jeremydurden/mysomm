@@ -6,6 +6,7 @@ const WineSearchEl = document.getElementById('wine-search-form');
 const SearchResultsEl = document.getElementById('search-results');
 const WineResultsHeaderEl = document.getElementById('wine-results-header');
 const WineryResultsHeaderEl = document.getElementById('winery-results-header');
+const WineColorEl = document.getElementById('id_color_wine');
 
 
 WineryToggleBtnEl.addEventListener('click', function(e){
@@ -26,10 +27,17 @@ WineToggleBtnEl.addEventListener('click', function(e){
     }
 });
 
+WineColorEl.addEventListener('change', function(e){
+    if(e.target.value === ""){
+        e.target.classList.add('form-placeholder');
+    } else {
+        e.target.classList.remove('form-placeholder');
+    }
+})
+
 
 WineSearchEl.addEventListener('submit', function(e){
     e.preventDefault();
-
     let serialData = $(this).serialize();
     $.ajax({
         type: 'GET',
@@ -60,4 +68,39 @@ WineSearchEl.addEventListener('submit', function(e){
             SearchResultsEl.innerHTML = "";
         }
     });
+});
+
+WinerySearchEl.addEventListener('submit', function(e){
+    e.preventDefault();
+    let serialData = $(this).serialize();
+    $.ajax({
+        type: 'GET',
+        url: "/winery/search",
+        data: serialData,
+        success: function (response) {
+            WineResultsHeaderEl.classList.add('hidden');
+            SearchResultsEl.innerHTML = "";
+            response.forEach(function(winery){
+                let tr = document.createElement('tr');
+                let name = document.createElement('td');
+                name.textContent = winery.name;
+                let region = document.createElement('td');
+                region.textContent = winery.region;
+                let county = document.createElement('td');
+                county.textContent = winery.county;
+                let state = document.createElement('td');
+                state.textContent = winery.state;
+                tr.appendChild(name);
+                tr.appendChild(region);
+                tr.appendChild(county);
+                tr.appendChild(state);
+                WineryResultsHeaderEl.classList.remove('hidden');
+                SearchResultsEl.appendChild(tr);
+            });
+        },
+        error: function (response) {
+            SearchResultsEl.innerHTML = "";
+        }
+    });
+
 });

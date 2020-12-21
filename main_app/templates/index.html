@@ -7,14 +7,10 @@
             <div class="input-group">
                 <button class="search-toggle-btn" id="winery-toggle-btn">Search for Wineries</button>
                 <button class="search-toggle-btn" id="wine-toggle-btn"> Search for Wines</button>
+                <!-- Search for Wines -->
                 <form id="wine-search-form" class="hidden">
                     {% csrf_token %}
-                    <input type="text" name="name" class="form-control" placeholder="Wine Name">
-                    <input type="text" name="style" class="form-control" placeholder="Style">
-                    <input type="text" name="grape" class="form-control" placeholder="Grape">
-                    <input type="number" max="9999" min="1000" name="min_year" class="form-control" placeholder="Min Year">
-                    <input type="number" max="9999" min="1000" name="max_year" class="form-control" placeholder="Max Year">
-                    <input type="text" name="color" class="form-control" placeholder="Color">
+                    {{ wine_form }}
                     <button type="submit" class="btn btn-secondary">
                         Search <i class="fa fa-search"></i>
                     </button>
@@ -22,23 +18,11 @@
                 <!-- Search for Wineries -->
                 <form id="winery-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
                     {% csrf_token %}
-                    <input type="text" name="name" class="form-control" placeholder="Winery Name">
-                    <input type="text" name="region" class="form-control" placeholder="Region">
-                    <input type="text" name="county" class="form-control" placeholder="County">
-                    <input type="text" name="state" class="form-control" placeholder="State">
+                    {{ winery_form }}
                     <button type="submit" class="btn btn-secondary">
                         Search <i class="fa fa-search"></i>
                     </button>
                 </form>
-                <!-- Search for Wines -->
-
-
-                <!-- <input type="text" class="form-control" placeholder="Search...">
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div> -->
             </div>
 <!--     List Of Search Items       -->
             <div class="row">

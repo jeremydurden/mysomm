@@ -35,6 +35,7 @@ class Wine(models.Model):
     WHITE = 'WH'
     ROSE = 'RS'
     COLOR_CHOICES = [
+        ('', 'Color'), ## Allows for blanks in search and dropdowns
         (RED, 'Red'),
         (WHITE, 'White'),
         (ROSE, 'Rosé'),
