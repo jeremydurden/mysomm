@@ -25,6 +25,7 @@ urlpatterns = [
     path('wine/<int:pk>/update/', views.WineUpdate.as_view(), name='wine_update'),
     path('wine/<int:pk>/delete/', views.WineDelete.as_view(), name='wine_delete'),
     path('wine/search', views.wine_search, name="wine_search"),
+    path('wine/mapsearch', views.wine_search_map, name="wine_search_map"),
     ### Grapes ###
     path('mygrapes/', views.my_grapes, name='my_grapes'),
 ]

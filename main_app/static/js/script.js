@@ -39,6 +39,7 @@ WineColorEl.addEventListener('change', function(e){
 WineSearchEl.addEventListener('submit', function(e){
     e.preventDefault();
     let serialData = $(this).serialize();
+    console.log(serialData);
     $.ajax({
         type: 'GET',
         url: "/wine/search",
@@ -48,24 +49,17 @@ WineSearchEl.addEventListener('submit', function(e){
             SearchResultsEl.innerHTML = "";
             // TODO add links
             response.forEach(function(wine){
-                let link = document.createElement('a');
-                link.href = "/wine/" + wine.id;
                 let tr = document.createElement('tr');
-                let name = document.createElement('td');
-                name.textContent = wine.name;
-                let grape = document.createElement('td');
-                grape.textContent = wine.grape;
-                let color = document.createElement('td');
-                color.textContent = wine.color;
-                let vintage = document.createElement('td');
-                vintage.textContent = wine.vintage;
+                let name = createLink(wine.name, wine.id);
+                let grape = createLink(wine.grape, wine.id);
+                let color = createLink(wine.color, wine.id);
+                let vintage = createLink(wine.vintage, wine.id);
                 tr.appendChild(name);
                 tr.appendChild(grape);
                 tr.appendChild(color);
                 tr.appendChild(vintage);
-                link.appendChild(tr);
                 WineResultsHeaderEl.classList.remove('hidden');
-                SearchResultsEl.appendChild(link);
+                SearchResultsEl.appendChild(tr);
             });
         },
         error: function (response) {
@@ -84,26 +78,18 @@ WinerySearchEl.addEventListener('submit', function(e){
         success: function (response) {
             WineResultsHeaderEl.classList.add('hidden');
             SearchResultsEl.innerHTML = "";
-             // TODO add links
             response.forEach(function(winery){
-                let link = document.createElement('a');
-                link.href = "/winery/" + winery.id;
                 let tr = document.createElement('tr');
-                let name = document.createElement('td');
-                name.textContent = winery.name;
-                let region = document.createElement('td');
-                region.textContent = winery.region;
-                let county = document.createElement('td');
-                county.textContent = winery.county;
-                let state = document.createElement('td');
-                state.textContent = winery.state;
+                let name = createLink(winery.name, winery.id);
+                let region = createLink(winery.region, winery.id);
+                let county = createLink(winery.county, winery.id) ;
+                let state = createLink(winery.state, winery.id);
                 tr.appendChild(name);
                 tr.appendChild(region);
                 tr.appendChild(county);
                 tr.appendChild(state);
-                link.appendChild(tr);
                 WineryResultsHeaderEl.classList.remove('hidden');
-                SearchResultsEl.appendChild(link);
+                SearchResultsEl.appendChild(tr);
             });
         },
         error: function (response) {
@@ -112,3 +98,51 @@ WinerySearchEl.addEventListener('submit', function(e){
     });
 
 });
+
+// Clickable functionality for the map
+var myPlot = document.getElementsByClassName('plotly-graph-div')[0];
+myPlot.on('plotly_click', function(data){
+    console.log('click');
+    console.log(data)
+    console.log(data.points[0].customdata)
+    let token = document.getElementById('csrf').firstElementChild.value;
+    console.log(token);
+    let countyId = data.points[0].customdata;
+    $.ajax({
+        type: 'GET',
+        url: "/wine/mapsearch",
+        data: {
+            token: token,
+            county: countyId
+        },
+        success: function (response) {
+            WineryResultsHeaderEl.classList.add('hidden');
+            SearchResultsEl.innerHTML = "";
+            response.forEach(function(wine){
+                let tr = document.createElement('tr');
+                let name = createLink(wine.name, wine.id);
+                let grape = createLink(wine.grape, wine.id);
+                let color = createLink(wine.color, wine.id);
+                let vintage = createLink(wine.vintage, wine.id);
+                tr.appendChild(name);
+                tr.appendChild(grape);
+                tr.appendChild(color);
+                tr.appendChild(vintage);
+                WineResultsHeaderEl.classList.remove('hidden');
+                SearchResultsEl.appendChild(tr);
+            });
+        },
+        error: function (response) {
+            SearchResultsEl.innerHTML = "";
+        }
+    });
+
+});
+function createLink(content, wineId){
+    let td = document.createElement('td');
+    let link = document.createElement('a');
+    link.textContent = content;
+    link.href = "/wine/" + wineId;
+    td.appendChild(link);
+    return td;
+}
