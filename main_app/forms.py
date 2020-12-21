@@ -23,7 +23,7 @@ class WineForm(ModelForm):
     style = forms.CharField(max_length=100, required=False)
     grape = forms.CharField(max_length=100, required=False)
     vintage = forms.CharField(max_length=4, required=False)
-    color = forms.CharField(max_length=5, required=False)
+    color = forms.ChoiceField(choices=Wine.COLOR_CHOICES, required=False)
     taste_notes = forms.CharField(max_length=250, required=False, widget=forms.Textarea)
     image_url = forms.CharField(max_length=100, required=False)
 

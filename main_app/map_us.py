@@ -1,10 +1,9 @@
 import plotly.graph_objects as go
 from plotly.offline import plot
 import pandas as pd
-# from .models import Test_Data 
-# ANGIE -- you may need to import data here...if render map can't accept args
 
 def render_map(query):
+  
     df=pd.DataFrame(query)
     df.head()
     df['text'] = "Our Wines"
@@ -15,16 +14,17 @@ def render_map(query):
 
     fig = go.Figure()
 
+  
     for i in range(len(limits)):
         lim = limits[i]
         df_sub = df[lim[0]:lim[1]]
         fig.add_trace(go.Scattergeo(
             locationmode = 'USA-states',
-            lon = df_sub['lon'],
-            lat = df_sub['lat'],
-            text = df_sub['text'],
+            lon = df_sub['lon'] if query else None,
+            lat = df_sub['lat'] if query else None,
+            text = df_sub['text'] if query else None,
             marker = dict(
-                size = df_sub['count']/scale,
+                size = df_sub['count']/scale if query else 2,
                 color = colors[i],
                 line_color='rgb(200,200,200)',
                 line_width=0.5,
