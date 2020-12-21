@@ -60,7 +60,11 @@ def create_winery(request):
     if form.is_valid():
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
-      db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+      try: 
+        db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+      except:
+        error = "County not found. Please try again."
+        return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
       winery = Winery(
         name = form.cleaned_data['name'],
         address = form.cleaned_data['address'],
