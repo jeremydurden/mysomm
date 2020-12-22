@@ -7,15 +7,15 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class WineryForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    address = forms.CharField(max_length=100)
-    region = forms.CharField(max_length=100)
-    county = forms.CharField(max_length=100)
-    city = forms.CharField(max_length=100)
-    state = forms.CharField(max_length=2)
-    zipcode = forms.CharField(max_length=5, required=False)
-    img_url = forms.CharField(max_length=100, required=False,)
-    logo_url = forms.CharField(max_length=100, required=False,)
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    region = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    county = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    city = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    state = forms.CharField(max_length=2, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    zipcode = forms.CharField(max_length=5, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    img_url = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    logo_url = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 
 
