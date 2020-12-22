@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Wine, Winery
+from .models import Wine, Winery, Comment
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
@@ -77,3 +77,9 @@ class EnthusiastSignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class CommentForm(ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['content', 'rating']
