@@ -30,7 +30,7 @@ def render_map(query):
             ),
             name = '',
             hovertemplate= (df_sub['count']).astype(str) + ' wines in ' + df_sub['name'] + ' County' if query else None,
-            customdata = df_sub['county_id']
+            customdata = df_sub['county_id'] if query else None,
             ))
 
     fig.update_layout(

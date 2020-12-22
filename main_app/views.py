@@ -187,6 +187,10 @@ class WineDetail(DetailView):
 class WineUpdate(UpdateView):
   model = Wine
   fields = ['style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url', ]
+  def get_context_data(self, **kwargs):
+      context = super(WineUpdate, self).get_context_data(**kwargs)
+      context['wine_form']  = WineForm()
+      return context
 
 class WineDelete(DeleteView):
   model = Wine
