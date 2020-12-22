@@ -100,7 +100,7 @@ WinerySearchEl.addEventListener('submit', function(e){
 // Clickable functionality for the map
 var myPlot = document.getElementsByClassName('plotly-graph-div')[0];
 myPlot.on('plotly_click', function(data){
-    let token = document.getElementById('csrf').firstElementChild.value;
+    const token = document.getElementById('csrf').firstElementChild.value;
     let countyId = data.points[0].customdata;
     $.ajax({
         type: 'GET',

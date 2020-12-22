@@ -59,13 +59,14 @@ def create_winery(request):
   if request.method == 'POST':
     form = WineryForm(request.POST)
     if form.is_valid():
+      input_county = form.cleaned_data['county']
+      input_state = form.cleaned_data['state']
       try: 
         db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+        print('made it here')
       except:
         error = "County not found. Please try again."
         return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
-      input_county = form.cleaned_data['county']
-      input_state = form.cleaned_data['state']
       winery = Winery(
         name = form.cleaned_data['name'],
         address = form.cleaned_data['address'],
@@ -97,13 +98,13 @@ def winery_update(request, winery_id):
   if request.method == 'POST':
     form = WineryForm(request.POST)
     if form.is_valid():
+      input_county = form.cleaned_data['county']
+      input_state = form.cleaned_data['state']
       try: 
         db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
       except:
         error = "County not found. Please try again."
         return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
-      input_county = form.cleaned_data['county']
-      input_state = form.cleaned_data['state']
       winery.name = form.cleaned_data['name']
       winery.address = form.cleaned_data['address']
       winery.region = form.cleaned_data['region']
@@ -181,6 +182,10 @@ def create_wine(request, winery_id):
 class WineDetail(DetailView):
   model = Wine
 
+  def get_context_data(self, **kwargs):
+        context = super(WineDetail, self).get_context_data(**kwargs)
+        context['quini_token'] = 'ujm3rn9xivc2ulzyjh82'
+        return context
 
 class WineUpdate(UpdateView):
   model = Wine
