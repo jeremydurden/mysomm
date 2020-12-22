@@ -20,12 +20,13 @@ class WineryForm(forms.Form):
 
 
 class WineForm(ModelForm):
-    style = forms.CharField(max_length=100, required=False)
-    grape = forms.CharField(max_length=100, required=False)
-    vintage = forms.CharField(max_length=4, required=False)
-    color = forms.ChoiceField(choices=Wine.COLOR_CHOICES, required=False)
-    taste_notes = forms.CharField(max_length=250, required=False, widget=forms.Textarea)
-    image_url = forms.CharField(max_length=100, required=False)
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    style = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    grape = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    vintage = forms.CharField(max_length=4, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    color = forms.ChoiceField(choices=Wine.COLOR_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
+    taste_notes = forms.CharField(max_length=250, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    image_url = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Wine

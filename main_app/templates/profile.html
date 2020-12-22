@@ -2,7 +2,7 @@
 {% block body %}
 {% if user %}
 <div class="row">
-    <div class="col content_container">
+    <div class="col content-container">
         <div class="row"><h1><span>MyProfile.</span></h1></div>
         <br>
         <div class="row"><h2><span><strong>Username: </strong>{{ user.username }}</span></h2></div>
@@ -19,7 +19,7 @@
 
 
 {% if user.is_authenticated and user.is_vintner or user.is_superuser %}
-    <div class="col content_container">
+    <div class="col content-container">
         <div class="row">
             <h1>MyWineries.</h1>
             <a href="/winery/create"><button>Create Winery</button></a>
@@ -38,7 +38,7 @@
         {% endfor %}
 
         {% else %}
-        <div class="col content_container">
+        <div class="col content-container">
             <div class="row">
                 <p>Not a vintner</p>
             </div>
