@@ -16,13 +16,28 @@ header {
 h1 {
     font-size: 350%;
 }
+a {
+    color: #971313;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #4b0808;
+}
+
+li {
+    list-style-type: none;
+}
+
 table  {
     text-align: center;
 
     margin: 0 auto;
 }
-.content_container {
+.content-container {
     margin: 0 auto;
+    padding: 30px 30px;
     text-align: center;
     width: auto;
     border-radius: 10px;
@@ -85,8 +100,13 @@ table  {
 a.active {
   background-color: red !important;
 }
+
 .hidden {
     display: none;
+}
+
+.align-left {
+    text-align: left;
 }
 
 .search-toggle-btn {
@@ -108,4 +128,16 @@ a.active {
 
 .form-placeholder, .form-placeholder:focus {
     color: #6c757d;
+}
+
+img.winery-logo {
+    height: 150px;
+}
+
+img.winery-image {
+    height: 200px;
+}
+
+.btn {
+    border-bottom: 2px solid #971313;
 }

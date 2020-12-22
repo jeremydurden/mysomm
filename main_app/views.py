@@ -15,9 +15,7 @@ User = get_user_model()
 
 # Create your views here.
 def home(request, **kwargs):
-  #TODO If no query, then show all
   selected_wines = Wine.objects.all()
-  # else show the search results
   wine_query =  []
   for county in County.objects.all():
     county_wines = selected_wines.filter(winery__county = county)
@@ -63,7 +61,6 @@ def create_winery(request):
       input_state = form.cleaned_data['state']
       try: 
         db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
-        print('made it here')
       except:
         error = "County not found. Please try again."
         return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
