@@ -2,24 +2,22 @@
 {% block body %}
 
 <div class="row">
-    <div class="content_container" >
+    <div class="content-container" >
         <h1>My Wines</h1>
 
-                {% for wine in my_wines %}
-
-<div class="row" style="min-width: 600px;">
-
-                    <div class="col-3" style="margin: 0;">
-                    <a href="{% url 'wine_detail' wine.id %}"><button>View Wine</button></a>
-                    </div>
-                    <div class="col-8" style="text-align: left;">
-                    {{wine.name}} from {{ wine.winery.name }}
-                    </div>
-</div>
+        {% for wine in my_wines %}
+       
+        <div class="row" style="min-width: 600px; margin-bottom: 10px;">
+            <div class="col-2"></div>
+            <div class="col-9" style="text-align: left;">
+                <a style="margin-right: 10px;" href="{% url 'wine_detail' wine.id %}">{{wine.name}}</a> 
+                 {{ wine.winery.name }} ({{ wine.winery.county.name }} County)
+            </div>
+        </div>
 
                 {% endfor %}
 
-<br>
+        <br>
     </div>
 </div>
 
