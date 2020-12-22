@@ -15,20 +15,21 @@ User = get_user_model()
 
 # Create your views here.
 def home(request, **kwargs):
-  # If no query, then show all
+  #TODO If no query, then show all
   selected_wines = Wine.objects.all()
   # else show the search results
-
   wine_query =  []
   for county in County.objects.all():
     county_wines = selected_wines.filter(winery__county = county)
-    wine_query.append({
-      "name": county.name,
-      "state": county.state,
-      "lat": county.lat,
-      "lon": county.lon,
-      "count": len(county_wines)
-    })
+    if len(county_wines) > 0:
+      wine_query.append({
+        "name": county.name,
+        "state": county.state,
+        "lat": county.lat,
+        "lon": county.lon,
+        "count": len(county_wines),
+        "county_id": county.id
+      })
   map_data= map_us.render_map(wine_query)
   wine_search_form = WineSearchForm(auto_id='id_%s_wine')
   winery_search_form = WinerySearchForm(auto_id='id_%s_winery')
@@ -60,7 +61,12 @@ def create_winery(request):
     if form.is_valid():
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
-      db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+      try: 
+        db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+        print('made it here')
+      except:
+        error = "County not found. Please try again."
+        return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
       winery = Winery(
         name = form.cleaned_data['name'],
         address = form.cleaned_data['address'],
@@ -94,7 +100,11 @@ def winery_update(request, winery_id):
     if form.is_valid():
       input_county = form.cleaned_data['county']
       input_state = form.cleaned_data['state']
-      db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+      try: 
+        db_county = County.objects.get(name__iexact=input_county, state__iexact=input_state)
+      except:
+        error = "County not found. Please try again."
+        return render(request, 'main_app/winery_form.html', {"form": form, "error": error})
       winery.name = form.cleaned_data['name']
       winery.address = form.cleaned_data['address']
       winery.region = form.cleaned_data['region']
@@ -154,15 +164,9 @@ def winery_search(request):
 
 ######### WINES #########
 def my_wines(request):
-  # wines = Wine.objects.filter(user=request.user)
-  #
-  # if request.wine_id:
-  #   selected_wine = Wine.objects.filter(pk=request.wine_id)
-  # else:
-  #   selected_wine = None
+  wines = Wine.objects.filter(winery__user=request.user)
   return render(request, 'wines/my_wines.html', {
-    # "my_wines": wines,
-    # "selected_wine": selected_wine
+    "my_wines": wines,
   })
 
 
@@ -182,6 +186,10 @@ class WineDetail(DetailView):
         context['comment_form'] = CommentForm()
         return context
 
+  def get_context_data(self, **kwargs):
+        context = super(WineDetail, self).get_context_data(**kwargs)
+        context['quini_token'] = 'ujm3rn9xivc2ulzyjh82'
+        return context
 
 class WineUpdate(UpdateView):
   model = Wine
@@ -211,11 +219,20 @@ def wine_search(request):
       if c[0] != "":
         colors[c[0]] = c[1]
     for wine in wine_results:
-      wine['color'] = colors[wine['color']]
+      if wine['color'] != "":
+        wine['color'] = colors[wine['color']]
+      else:
+        wine['color'] = ""
     return JsonResponse(wine_results,safe=False)
   return JsonResponse({}, status=400)
   
 
+def wine_search_map(request):
+  if request.is_ajax() and request.method == "GET":
+    wines = Wine.objects.filter(winery__county = request.GET['county'])[:10].values('name', 'grape', 'color', 'vintage', 'id')
+    wine_results = list(wines)
+    return JsonResponse(wine_results, safe=False)
+  return JsonResponse({}, status=400)
 
 
 ######## GRAPES #########

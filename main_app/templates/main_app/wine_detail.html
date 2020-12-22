@@ -27,6 +27,83 @@
 
 <a href="{% url 'wine_update' wine.id %}">Edit</a>
 <a href="{% url 'wine_delete' wine.id %}">Delete</a>
+<div id="quini" class="hidden">
+    <h2 id="quini-h2">
+        Quini Reviews
+    </h2>
+    <table id="quini-list">
+    </table>
+</div>
+
+<script>
+
+    function quiniAPI(){
+        const token = '{{ quini_token }}';
+        const QuiniEl = document.getElementById('quini');
+        const QuiniTableEl = document.getElementById('quini-list');
+        let keywords = '{{ wine.name }} {{ wine.winery.name }}'
+        //ajax to get wine info
+        $.ajax({
+            type: 'GET',
+            url: 'https://quiniwine.com/api/pub/wineKeywordSearch/' + keywords + '/0/1?access_token=' + token,
+            data: '',
+            success: function (response) {
+                if(response.items[0].Name === '{{ wine.name }}' && response.items[0].Winery === '{{wine.winery.name}}'){
+                    let wineId = response.items[0].id;
+                    //ajax to get info for specific wine
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://quiniwine.com/api/pub/wineSummary.json?wine_id=' + wineId + '&access_token=' + token,
+                        data: '',
+                        success: function (response) {
+                            QuiniEl.classList.remove('hidden');
+                            let textReviews = response.agg_summary.textReviews;
+                            let scores = response.aggregate.scoreAvg;
+                            let eye = makeElement('Eye', textReviews.eye, scores[0]);
+                            let nose = makeElement('Nose', textReviews.nose, scores[1]);
+                            let mouth = makeElement('Mouth', textReviews.mouth, scores[2]);
+                            let finish = makeElement('Finish', textReviews.finish, scores[3]);
+                            let overall = makeElement('Overall',textReviews.overall, scores[4]);
+                            QuiniTableEl.appendChild(eye);
+                            QuiniTableEl.appendChild(nose);
+                            QuiniTableEl.appendChild(mouth);
+                            QuiniTableEl.appendChild(finish);
+                            QuiniTableEl.appendChild(overall);
+    
+                        },
+                        error: function (response) {
+                            QuiniEl.classList.add('hidden');
+                            QuiniTableEl.innerHTML = "";
+                        }
+                    });
+                    
+                } else {
+                    QuiniEl.classList.add('hidden');
+                    QuiniTableEl.innerHTML = "";
+                }
+
+            },
+            error: function (response) {
+               
+            }
+        });
+        
+        function makeElement(category, text, score){
+            let tr = document.createElement('tr');
+            let catTd = document.createElement('td');
+            catTd.textContent = category;
+            let scoreTd = document.createElement('td');
+            scoreTd.textContent = score;
+            let textTd = document.createElement('td');
+            textTd.textContent = text;
+            tr.appendChild(catTd);
+            tr.appendChild(scoreTd);
+            tr.appendChild(textTd);
+            return tr;
+        }
+    }
+    quiniAPI();
+</script>
 </div>
 
 

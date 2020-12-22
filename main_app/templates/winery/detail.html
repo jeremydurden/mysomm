@@ -1,27 +1,50 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="row">
+    <div class="col content_container">
+        <h1>Winery Details</h1>
+        <div class="col">
+            <div class="row">
+                <div class="col-8">
+                    {{winery}}
+                </div>
+                <div class="col-1">
+                    <a href="{% url 'winery_update' winery.id %}"><button>Edit</button></a>
+                </div>
+                <div class="col-1">
+                    <a href="{% url 'winery_delete' winery.id %}"><button>Delete</button></a>
+                </div>
+            </div>
+        </div>
 
-<h1>Winery Details</h1> 
-<a href="{% url 'winery_update' winery.id %}"><button>Edit</button></a></br>
-<a href="{% url 'winery_delete' winery.id %}"><button>Delete</button></a></br>
-
-{{winery}}
-<br><br>
+  <div class="col">
+      <br>
 <h3>Our Wines:</h3>
 {% for wine in winery.wine_set.all %}
-          <tr>
+        <tr>
             <li>
-            <td><a href="{% url 'wine_detail' wine.id %}"><span style="font-style: italic;">{{wine.name}}</span> is a {{wine.vintage}} {{wine.style}}</a></td>
-          </tr></li> <br>
+                <td><a href="{% url 'wine_detail' wine.id %}">
+                    <span style="font-style: italic;">{{wine.name}}</span>
+                    is a {{wine.vintage}} {{wine.style}}</a>
+                </td>
+            </li>
+        </tr>
 {% endfor %}
+    </div>
+</div>
+ <div class="col-sm-1">
 
-<form action="{% url 'add_wine' winery.id %}" method="post">
-  {% csrf_token %}
-  {{ wine_form.as_p }}
-  <input type="submit" class="btn" value="Add Wine">
-</form>
-<br>
+ </div>
 
+    <div class="col content_container">
+        <h1>Add Wine</h1>
+        <form action="{% url 'add_wine' winery.id %}" method="post">
+            {% csrf_token %}
+            {{ wine_form.as_p }}
+            <input type="submit" class="btn" value="Add Wine">
+        </form>
+    </div>
+</div>
 {% endblock %}
 

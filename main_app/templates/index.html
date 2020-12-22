@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block body %}
+{% load static %}
+
+{% block map %}
 <div class="row" id="search_dropdowns">
 <!-- Search for Wines -->
     <div class="col">
@@ -32,10 +34,20 @@
         </div>
     </div>
 </div>
+<!-- Results Table -->
+{% include 'search-results.html' %}
+
+
+
+
 <!--   Render Map     -->
+<div id="csrf"> {% csrf_token %}</div>
 <div class="col" id="map_content">
     {{ plot|safe }}
 </div>
 <!-- Results Table -->
 {% include 'search-results.html' %}
+
+<script defer src="{% static 'js/script.js' %}"></script>
 {% endblock %}
+
