@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block body %}
-<h1>Sign Up</h1>
-<div><p>Would you like to sign up as a Winery Owner, or an Enthusiast?</p></div>
-<div><a href="{% url 'vintner_signup' %}">Winery Owner</a></div>
-<div><a href="{% url 'enthusiast_signup' %}">Enthusiast</a></div>
-
+<div class="row">
+    <div class="container content-container">
+        <h1>Sign Up</h1>
+        <p>Would you like to sign up as a Winery Owner, or an Enthusiast?</p>
+        <div class="row">
+            <div class="col-sm-6"><a class="btn" href="{% url 'vintner_signup' %}">Winery Owner</a></div>
+            <div class="col-sm-6"><a class="btn" href="{% url 'enthusiast_signup' %}">Enthusiast</a></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
