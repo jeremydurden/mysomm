@@ -8,7 +8,7 @@
         <div class="btn-group">
             <button type="button" id="wine-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wines</button>
             <div id="wine-dropdown" class="dropdown-menu">
-                <form id="wine-search-form">
+                <form id="wine-search-form" autocomplete="off">
                     {% csrf_token %}
                     {{ wine_form }}
                     <button id="wine-search-btn" type="submit" class="btn btn-secondary">
@@ -23,7 +23,7 @@
         <div class="btn-group">
             <button type="button" id="winery-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wineries</button>
             <div class="dropdown-menu">
-                <form id="winery-search-form" action="{% url 'winery_search' %}" method="POST">
+                <form id="winery-search-form" autocomplete="off" action="{% url 'winery_search' %}" method="POST">
                     {% csrf_token %}
                     {{ winery_form }}
                     <button type="submit" class="btn btn-secondary">
