@@ -16,6 +16,9 @@ header {
 h1 {
     font-size: 350%;
 }
+h1, h2 {
+    margin-bottom: 20px;
+}
 a {
     color: #971313;
     text-decoration: none;
