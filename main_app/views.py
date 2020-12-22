@@ -184,10 +184,6 @@ class WineDetail(DetailView):
   def get_context_data(self, **kwargs):
         context = super(WineDetail, self).get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
-        return context
-
-  def get_context_data(self, **kwargs):
-        context = super(WineDetail, self).get_context_data(**kwargs)
         context['quini_token'] = 'ujm3rn9xivc2ulzyjh82'
         return context
 
