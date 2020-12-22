@@ -28,4 +28,8 @@ urlpatterns = [
     path('wine/mapsearch', views.wine_search_map, name="wine_search_map"),
     ### Grapes ###
     path('mygrapes/', views.my_grapes, name='my_grapes'),
+    ### Comments ###
+    path('wine/<int:wine_id>/add_comment/', views.create_comment, name='add_comment'),
+    path('comment/<int:pk>/update/', views.CommentUpdate.as_view(), name='comment_update'),
+    path('comment/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
 ]

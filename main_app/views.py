@@ -8,8 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy, reverse
 from . import map_us
-from .models import Wine, County
-from .forms import WineryForm, WineForm, WineSearchForm, WinerySearchForm, VintnerSignUpForm, EnthusiastSignUpForm
+from .models import Wine, County, Comment
+from .forms import WineryForm, WineForm, WineSearchForm, WinerySearchForm, VintnerSignUpForm, EnthusiastSignUpForm, CommentForm
 
 User = get_user_model()
 
@@ -181,9 +181,9 @@ def create_wine(request, winery_id):
 
 class WineDetail(DetailView):
   model = Wine
-
   def get_context_data(self, **kwargs):
         context = super(WineDetail, self).get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
         context['quini_token'] = 'ujm3rn9xivc2ulzyjh82'
         return context
 
@@ -239,22 +239,6 @@ def my_grapes(request):
   
 ##### REGISTRATION ###########
 def signup(request):
-  # error_message = ''
-  # if request.method == 'POST':
-  #   # This is how to create a 'user' form object
-  #   # that includes the data from the browser
-  #   form = UserCreationForm(request.POST)
-  #   if form.is_valid():
-  #     # This will add the user to the database
-  #     user = form.save()
-  #     # This is how we log a user in via code
-  #     login(request, user)
-  #     return redirect('about')
-  #   else:
-  #     error_message = 'Invalid sign up - try again'
-  # # A bad POST or a GET request, so render signup.html with an empty form
-  # form = UserCreationForm()
-  # context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html')
 
 class VintnerSignUpView(CreateView):
@@ -284,3 +268,26 @@ class EnthusiastSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
+
+
+
+
+######  Comments ############
+
+def create_comment(request, wine_id):
+  form = CommentForm(request.POST)
+  if form.is_valid():
+    new_comment = form.save(commit=False)
+    new_comment.user_id = request.user.id
+    new_comment.wine_id = wine_id
+    new_comment.save()
+  return redirect('wine_detail', wine_id)
+
+class CommentUpdate(UpdateView):
+  model = Comment
+  fields = ['content', 'rating']
+
+class CommentDelete(DeleteView):
+  model = Comment
+  def get_success_url(self):
+    return reverse ('wine_detail', args={self.object.wine.id})
