@@ -24,15 +24,14 @@
 
         <div class="row">
             <h1>MyWineries.</h1>
-            <a href="/winery/create"><button>Create Winery</button></a>
+            <a href="/winery/create"><button class="btn">Create Winery</button></a>
 
         </div>
         <br>
         {% endif %}
         {% for winery in my_wineries %}
         <div class="row">
-            <div class="col-sm-4"><a href="{% url 'winery_detail' winery.id %}"><button>View Winery</button></a></div>
-            <div class="col-sm-7"><b>{{ winery.name }}</b> {{ winery.city }} {{ winery.county.state }}</div>
+            <div class="col"><a href="{% url 'winery_detail' winery.id %}">{{ winery.name }} {{ winery.city }} {{ winery.county.state }}</a></div>
         </div>
         <br>
         {% endfor %}

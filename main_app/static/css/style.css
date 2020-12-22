@@ -1,3 +1,7 @@
+:root {
+    --theme-red: #971313;
+}
+
 body {
     font-family: 'Gabriela', serif;
 }
@@ -8,7 +12,7 @@ background-color: #C4C4C4;
 }
 header {
     color: #C4C4C4;
-    background-color: #971313;
+    background-color: var(--theme-red);
     height: 10%;
     font-size: larger;
     width: 625px;
@@ -20,7 +24,7 @@ h1, h2 {
     margin-bottom: 20px;
 }
 a {
-    color: #971313;
+    color: var(--theme-red);
     text-decoration: none;
     font-weight: bold;
 }
@@ -142,5 +146,9 @@ img.winery-image {
 }
 
 .btn {
-    border-bottom: 2px solid #971313;
+    border-bottom: 2px solid var(--theme-red);
+}
+
+.btn:hover {
+ color: var(--theme-red);
 }
