@@ -1,11 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block body %}
-<h1>Sign Up</h1>
-<p>Are you a vintner?</p>
-<form method="post" action="{% url 'vintner_signup' %}">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" class="btn" value="signup">
-</form>
+<div class="row">
+    <div class="container content-container sign-up">
+        <h1>Sign Up</h1>
+        <p>Are you a vintner?</p>
+        <form method="post" action="{% url 'vintner_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn" value="signup">
+        </form>
+    </div>
+</div>
+<script defer src="{% static 'js/sign-up.js' %}"></script>
 {% endblock %}
 

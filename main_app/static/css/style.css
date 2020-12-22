@@ -152,3 +152,7 @@ img.winery-image {
 .btn:hover {
  color: var(--theme-red);
 }
+
+.sign-up.container {
+    min-width: 400px;
+}

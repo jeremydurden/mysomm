@@ -50,8 +50,9 @@ class WinerySearchForm(forms.Form):
 
 
 class VintnerSignUpForm(UserCreationForm):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     
     class Meta(UserCreationForm.Meta):
         model = User
@@ -66,6 +67,9 @@ class VintnerSignUpForm(UserCreationForm):
         return user
 
 class EnthusiastSignUpForm(UserCreationForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     
     class Meta(UserCreationForm.Meta):
         model = User
