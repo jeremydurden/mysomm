@@ -17,8 +17,6 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script defer src="{% static 'js/script.js' %}"></script>
-
 </head>
 
 <body id="body">
@@ -70,8 +68,10 @@
 
 
 <div class="container-fluid" id="content_bkg">
+
     <div class="container">
         <br>
+
         {% block body %}
         {% endblock %}
         <br>

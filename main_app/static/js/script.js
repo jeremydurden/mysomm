@@ -39,7 +39,6 @@ WineColorEl.addEventListener('change', function(e){
 WineSearchEl.addEventListener('submit', function(e){
     e.preventDefault();
     let serialData = $(this).serialize();
-    console.log(serialData);
     $.ajax({
         type: 'GET',
         url: "/wine/search",
@@ -47,7 +46,6 @@ WineSearchEl.addEventListener('submit', function(e){
         success: function (response) {
             WineryResultsHeaderEl.classList.add('hidden');
             SearchResultsEl.innerHTML = "";
-            // TODO add links
             response.forEach(function(wine){
                 let tr = document.createElement('tr');
                 let name = createLink(wine.name, wine.id);
@@ -102,11 +100,7 @@ WinerySearchEl.addEventListener('submit', function(e){
 // Clickable functionality for the map
 var myPlot = document.getElementsByClassName('plotly-graph-div')[0];
 myPlot.on('plotly_click', function(data){
-    console.log('click');
-    console.log(data)
-    console.log(data.points[0].customdata)
     let token = document.getElementById('csrf').firstElementChild.value;
-    console.log(token);
     let countyId = data.points[0].customdata;
     $.ajax({
         type: 'GET',
