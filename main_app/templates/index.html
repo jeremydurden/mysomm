@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block map %}
 <div class="row" id="search_dropdowns">
@@ -44,5 +45,9 @@
 <div class="col" id="map_content">
     {{ plot|safe }}
 </div>
+<!-- Results Table -->
+{% include 'search-results.html' %}
+
+<script defer src="{% static 'js/script.js' %}"></script>
 {% endblock %}
 
