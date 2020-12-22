@@ -15,7 +15,6 @@ DropDownMenuEl.addEventListener('click', function(e) {
 
 })
 
-
 WineSearchBtnEl.addEventListener('click', function(e){
     DropDownMenuEl.parentElement.classList.remove('show');
     WineToggleBtnEl.setAttribute('aria-expanded', 'false');
