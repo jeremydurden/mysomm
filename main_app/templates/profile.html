@@ -5,9 +5,9 @@
     <div class="col content-container">
         <div class="row"><h1><span>MyProfile.</span></h1></div>
         <br>
-        <div class="row"><h2><span><strong>Username: </strong>{{ user.username }}</span></h2></div>
-        <div class="row"><h2><span><strong>First Name: </strong>{{ user.first_name }}</span></h2></div>
-        <div class="row"><h2><span><strong>Last Name: </strong>{{ user.last_name }}</span></h2></div>
+        <div class="row"><h3><span><strong>Username: </strong>{{ user.username }}</span></h3></div>
+        <div class="row"><h3><span><strong>First Name: </strong>{{ user.first_name }}</span></h3></div>
+        <div class="row"><h3><span><strong>Last Name: </strong>{{ user.last_name }}</span></h3></div>
         <br>
     </div>
 
@@ -18,8 +18,10 @@
     </div>
 
 
-{% if user.is_authenticated and user.is_vintner or user.is_superuser %}
-    <div class="col content-container">
+
+    {% if user.is_authenticated and user.is_vintner or user.is_superuser %}
+    <div class="col content_container">
+
         <div class="row">
             <h1>MyWineries.</h1>
             <a href="/winery/create"><button>Create Winery</button></a>
@@ -28,24 +30,23 @@
         <br>
         {% endif %}
         {% for winery in my_wineries %}
-
         <div class="row">
-            <div class="col-sm-1"><a href="{% url 'winery_detail' winery.id %}"><button>EDIT</button></a></div>
-            <div class="col-sm-10"><b>{{ winery.name }}</b> {{ winery.city }} {{ winery.county.state }}</div>
+            <div class="col-sm-4"><a href="{% url 'winery_detail' winery.id %}"><button>View Winery</button></a></div>
+            <div class="col-sm-7"><b>{{ winery.name }}</b> {{ winery.city }} {{ winery.county.state }}</div>
         </div>
         <br>
-    </div>
         {% endfor %}
+    </div>
 
-        {% else %}
-        <div class="col content-container">
-            <div class="row">
-                <p>Not a vintner</p>
-            </div>
+
+
+    {% else %}
+    <div class="col content_container">
+        <div class="row">
+            <p>Not a vintner</p>
+
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 </div>
-
-
-
 {% endblock %}
