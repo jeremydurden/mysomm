@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Wine, Winery
+from .models import Wine, Winery, Comment
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
@@ -23,7 +23,6 @@ class WineForm(ModelForm):
     style = forms.CharField(max_length=100, required=False)
     grape = forms.CharField(max_length=100, required=False)
     vintage = forms.CharField(max_length=4, required=False)
-    color = forms.CharField(max_length=5, required=False)
     taste_notes = forms.CharField(max_length=250, required=False, widget=forms.Textarea)
     image_url = forms.CharField(max_length=100, required=False)
 
@@ -77,3 +76,9 @@ class EnthusiastSignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class CommentForm(ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['content', 'rating']

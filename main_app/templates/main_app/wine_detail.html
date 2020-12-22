@@ -28,5 +28,25 @@
 <a href="{% url 'wine_update' wine.id %}">Edit</a>
 <a href="{% url 'wine_delete' wine.id %}">Delete</a>
 </div>
+
+
+{% for comment in wine.comment_set.all %}
+          <tr>
+            <li>
+            <td><span>{{comment.content}}</span> || {{comment.rating}} star wine! </a></td>
+            <a href="{% url 'comment_update' comment.id %}">Edit</a>
+            <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+          </tr></li> <br>
+{% endfor %}
+
+<form action="{% url 'add_comment' wine.id %}" method="post">
+  {% csrf_token %}
+  {{ comment_form }}
+  <input type="submit" class="btn" value="Add Comment">
+</form>
+<br>
+
+
+
 {% endblock %}
 
