@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-{% if winery %}
+<div class="row">
+  <div class="container content_container">
+  {% if winery %}
 <h1>Edit <span>{{winery.name}}</span></h1>
 {% else %}
 <h1>Add Winery</h1>
@@ -19,4 +21,6 @@
 </table>
 <input type="submit" value="Submit!" class="btn">
 </form>
+</div>
+</div>
 {% endblock %}

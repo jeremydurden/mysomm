@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block body %}
+{% block map %}
 <div class="row" id="search_dropdowns">
 <!-- Search for Wines -->
     <div class="col">
@@ -35,10 +35,10 @@
 </div>
 <!-- Results Table -->
 {% include 'search-results.html' %}
-{% endblock %}
 
 
-{% block map %}
+
+
 <!--   Render Map     -->
 <div id="csrf"> {% csrf_token %}</div>
 <div class="col" id="map_content">
