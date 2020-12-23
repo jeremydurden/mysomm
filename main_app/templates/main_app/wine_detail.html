@@ -10,6 +10,7 @@
             <div class="col-sm-8">
                 <p><span>produced by <a href="{% url 'winery_detail' wine.winery.id %}">{{ wine.winery.name}}</a> </span></p>
             </div>
+            {% if wine.winery.user == user %}
             <div class="col-sm-1" style="margin: 0 5px;">
                 <a href="{% url 'wine_update' wine.id %}">Edit</a>
             </div>
@@ -17,6 +18,7 @@
             <div class="col-sm-1" style="margin: 0 5px;">
                 <a href="{% url 'wine_delete' wine.id %}">Delete</a>
             </div>
+            {% endif %}
         </div>
         <br>
         <div class="divider"></div>
@@ -111,14 +113,16 @@
         <br>
         <div class='row'>
             <div class="col-sm-8">
-                by {%if user.first_name %}
-                {{ user.first_name }}
+                by {%if comment.user.first_name %}
+                {{ comment.user.first_name }}
                 {% else %}
-                {{ user.username }}
+                {{ comment.username }}
                 {% endif %}
             </div>
             <div class="col-sm-2">
+                {% if comment.user == user %}
                 <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+                {% endif %}
             </div>
         </div>
         <br>

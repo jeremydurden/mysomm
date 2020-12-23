@@ -23,12 +23,14 @@
                         {{ winery.zipcode }}
                     </p>
                 </div>
+                {% if winery.user == user %}
                 <div class="col-1">
                     <a href="{% url 'winery_update' winery.id %}"><button class="btn">Edit</button></a>
                 </div>
                 <div class="col-1">
                     <a href="{% url 'winery_delete' winery.id %}"><button class="btn">Delete</button></a>
                 </div>
+                {% endif %}
             </div>
         </div> 
         <br><br>
@@ -56,12 +58,18 @@
     </div>
 
     <div class="col content-container">
+        {% if winery.user == user %}
         <h1>Add Wine</h1>
         <form action="{% url 'add_wine' winery.id %}" method="post">
             {% csrf_token %}
             {{ wine_form.as_p }}
             <input type="submit" class="btn" value="Add Wine">
         </form>
+        {% else %}
+        <h4>Not finding what you're looking for?</h4>
+        <br>
+        <p><a href="{% url 'home' %}">Search our site for more wines</a></p>
+        {% endif %}
     </div>
 </div>
 <script defer src="{% static 'js/winery.js' %}"></script>
