@@ -271,7 +271,7 @@ def wine_search(request):
   return JsonResponse({}, status=400)
   
 
-@login_required
+
 def wine_search_map(request):
   if request.is_ajax() and request.method == "GET":
     wines = Wine.objects.filter(winery__county = request.GET['county'])[:10].values('name', 'grape', 'color', 'vintage', 'id')
