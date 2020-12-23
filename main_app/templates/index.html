@@ -7,11 +7,11 @@
     <div class="col">
         <div class="btn-group">
             <button type="button" id="wine-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wines</button>
-            <div class="dropdown-menu">
-                <form id="wine-search-form" class="hidden">
+            <div id="wine-dropdown" class="dropdown-menu">
+                <form id="wine-search-form" autocomplete="off">
                     {% csrf_token %}
                     {{ wine_form }}
-                    <button type="submit" class="btn btn-secondary">
+                    <button id="wine-search-btn" type="submit" class="btn btn-secondary">
                         Search <i class="fa fa-search"></i>
                     </button>
                 </form>
@@ -23,7 +23,7 @@
         <div class="btn-group">
             <button type="button" id="winery-toggle-btn" class="search-toggle-btn dropdown-toggle" data-toggle="dropdown">Search for Wineries</button>
             <div class="dropdown-menu">
-                <form id="winery-search-form" class="hidden" action="{% url 'winery_search' %}" method="POST">
+                <form id="winery-search-form" autocomplete="off" action="{% url 'winery_search' %}" method="POST">
                     {% csrf_token %}
                     {{ winery_form }}
                     <button type="submit" class="btn btn-secondary">
@@ -42,6 +42,6 @@
 <!-- Results Table -->
 {% include 'search-results.html' %}
 
-<script defer src="{% static 'js/script.js' %}"></script>
+<script defer src="{% static 'js/index-script.js' %}"></script>
 {% endblock %}
 
