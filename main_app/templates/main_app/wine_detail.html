@@ -72,12 +72,20 @@
                         <span style="font-style: italic;">{{other_wine.name}} </span>
                         is a {{other_wine.vintage}} {{other_wine.style}}</a>
                 </div>
+<<<<<<< HEAD
+                {% endif%}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+=======
 
                 {% endif%}
                 {% endfor %}
 
             </div>
         </div>
+>>>>>>> main
 
         <br>
 
@@ -103,8 +111,13 @@
         <div class="col-sm-8" style="text-align: left;">
             <strong>{{comment.rating}} star wine!</strong>
         </div>
-        <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
-            <a href="{% url 'comment_update' comment.id %}">Edit</a>
+        <div class="row" style="text-align: left;">
+            {%if user.first_name %}
+            {{ user.first_name }}
+            {% else %}
+            {{ user.username }}
+            {% endif %}
+            : {{comment.content}}
         </div>
         <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
             <a href="{% url 'comment_delete' comment.id %}">Delete</a>
