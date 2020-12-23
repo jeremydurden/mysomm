@@ -6,6 +6,8 @@ from .models import Winery, Wine, Grape
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from . import map_us
 from .models import Wine, County, Comment
@@ -14,6 +16,8 @@ from .forms import WineryForm, WineForm, WineSearchForm, WinerySearchForm, Vintn
 User = get_user_model()
 
 # Create your views here.
+
+
 def home(request, **kwargs):
   selected_wines = Wine.objects.all()
   wine_query =  []
@@ -38,21 +42,39 @@ def home(request, **kwargs):
     "winery_form": winery_search_form,
     })
 
+
+
+
+@login_required
 def profile(request):
   my_wineries = Winery.objects.filter(user=request.user.id)
 
   return render(request, 'profile.html', {'my_wineries': my_wineries})
 
+
+
+@login_required
 def glossary(request):
   return render(request, 'glossary.html')
+
+
 
 def about(request):
   return render(request, 'about.html')
 
+
+
+
+
 ######### WINERY ########
+
+
 def find_wineries(request):
   return render(request, 'winery/index.html')
 
+
+
+@login_required
 def create_winery(request):
   if request.method == 'POST':
     form = WineryForm(request.POST)
@@ -88,6 +110,9 @@ def winery_detail(request, winery_id):
   wine_form = WineForm()
   return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
+
+
+@login_required
 def winery_update(request, winery_id):
   winery = Winery.objects.get(pk=winery_id)
   if request.method == 'POST':
@@ -124,11 +149,14 @@ def winery_update(request, winery_id):
     })
   return render(request, 'main_app/winery_form.html', {"form": form, "winery": winery})
 
-class WineryDelete(DeleteView):
+
+
+class WineryDelete(LoginRequiredMixin, DeleteView):
   model = Winery
   success_url = '/profile/'
 
 
+@login_required
 def winery_search(request):
   if request.is_ajax() and request.method == "GET":
     filter_terms = {}
@@ -158,6 +186,7 @@ def winery_search(request):
   return JsonResponse({}, status=400)
 
 ######### WINES #########
+@login_required
 def my_wines(request):
   wines = Wine.objects.filter(winery__user=request.user)
   return render(request, 'wines/my_wines.html', {
@@ -165,6 +194,7 @@ def my_wines(request):
   })
 
 
+@login_required
 def create_wine(request, winery_id):
   form = WineForm(request.POST)
   if form.is_valid():
@@ -174,7 +204,7 @@ def create_wine(request, winery_id):
   return redirect('winery_detail', winery_id=winery_id)
   
 
-class WineDetail(DetailView):
+class WineDetail(LoginRequiredMixin, DetailView):
   model = Wine
   def get_context_data(self, **kwargs):
         context = super(WineDetail, self).get_context_data(**kwargs)
@@ -183,6 +213,7 @@ class WineDetail(DetailView):
         return context
 
 
+@login_required
 def wine_update(request, wine_id):
   wine = Wine.objects.get(pk=wine_id)
   if request.method == 'POST':
@@ -206,10 +237,13 @@ def wine_update(request, wine_id):
     })
   return render(request, 'main_app/wine_form.html', {"wine_form": form, "wine": wine})
 
-class WineDelete(DeleteView):
+
+
+class WineDelete(LoginRequiredMixin, DeleteView):
   model = Wine
   def get_success_url(self):
     return reverse ('winery_detail', args={self.object.winery.id})
+
 
 def wine_search(request):
   if request.is_ajax() and request.method == "GET":
@@ -238,6 +272,7 @@ def wine_search(request):
   return JsonResponse({}, status=400)
   
 
+@login_required
 def wine_search_map(request):
   if request.is_ajax() and request.method == "GET":
     wines = Wine.objects.filter(winery__county = request.GET['county'])[:10].values('name', 'grape', 'color', 'vintage', 'id')
@@ -247,14 +282,21 @@ def wine_search_map(request):
 
 
 ######## GRAPES #########
+
+
+@login_required
 def my_grapes(request):
   return render(request, 'mygrapes/index.html')
 
 
   
 ##### REGISTRATION ###########
+
 def signup(request):
   return render(request, 'registration/signup.html')
+
+
+
 
 class VintnerSignUpView(CreateView):
   model = User
@@ -269,6 +311,9 @@ class VintnerSignUpView(CreateView):
     user = form.save()
     login(self.request, user)
     return redirect('home')
+
+
+
 
 class EnthusiastSignUpView(CreateView):
     model = User
@@ -289,6 +334,7 @@ class EnthusiastSignUpView(CreateView):
 
 ######  Comments ############
 
+
 def create_comment(request, wine_id):
   form = CommentForm(request.POST)
   if form.is_valid():
@@ -298,11 +344,15 @@ def create_comment(request, wine_id):
     new_comment.save()
   return redirect('wine_detail', wine_id)
 
-class CommentUpdate(UpdateView):
+
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment
   fields = ['content', 'rating']
 
-class CommentDelete(DeleteView):
+
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   def get_success_url(self):
     return reverse ('wine_detail', args={self.object.wine.id})
