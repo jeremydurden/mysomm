@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <h1>Delete Winery</h1>
+<div class="row">
+  <div class="container content-container">
+    <h1>Delete Winery</h1>
 
-  <h4>Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?</h4>
-
-  <form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'winery_detail' winery.id %}">Cancel</a>
-  </form>
+    <h4>Are you sure you want to delete <span class="teal-text">{{ winery.name }}</span>?</h4>
+    <br>
+    <form action="" method="POST">
+      <div class="row">
+        {% csrf_token %}
+        <div class="col-sm-6">
+          <input type="submit" value="Yes - Delete!" class="btn">
+        </div>
+        <div class="col-sm-6">
+          <a class="btn cancel" href="{% url 'winery_detail' winery.id %}">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -3,12 +3,18 @@
 {% if user %}
 <div class="row">
     <div class="col content-container">
-        <div class="row"><h1><span>MyProfile.</span></h1></div>
-        <br>
-        <div class="row"><h3><span><strong>Username: </strong>{{ user.username }}</span></h3></div>
-        <div class="row"><h3><span><strong>First Name: </strong>{{ user.first_name }}</span></h3></div>
-        <div class="row"><h3><span><strong>Last Name: </strong>{{ user.last_name }}</span></h3></div>
-        <br>
+        <div class="row profile">
+            <h1>MyProfile.</h1>
+            <p>
+                Username: {{ user.username }}
+            </p>
+            <p>
+                First Name: {{ user.first_name }}
+            </p>
+            <p>
+                Last Name: {{ user.last_name }}
+            </p>
+        </div>
     </div>
 
 
