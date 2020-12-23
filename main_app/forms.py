@@ -25,7 +25,7 @@ class WineForm(ModelForm):
     grape = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     vintage = forms.CharField(max_length=4, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     color = forms.ChoiceField(choices=Wine.COLOR_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control form-placeholder'}))
-    taste_notes = forms.CharField(max_length=250, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    taste_notes = forms.CharField(max_length=250, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
     image_url = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
@@ -84,6 +84,8 @@ class EnthusiastSignUpForm(UserCreationForm):
         return user
 
 class CommentForm(ModelForm):
+    content = forms.CharField(max_length=250, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
+    rating = forms.ChoiceField(choices=Comment.SCORES, widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Comment
