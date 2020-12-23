@@ -109,7 +109,12 @@
             </div>
         </div>
         <div class="row" style="text-align: left;">
-            {{comment.content}}
+            {%if user.first_name %}
+            {{ user.first_name }}
+            {% else %}
+            {{ user.username }}
+            {% endif %}
+            : {{comment.content}}
         </div>
         <br>
         {% endfor %}
