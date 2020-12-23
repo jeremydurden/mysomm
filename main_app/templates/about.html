@@ -1,24 +1,65 @@
 {% extends "base.html" %}
+{% load static %}
 {% block body %}
+<div class="row content-container">
+    <div class="row"><h1>About.</h1></div>
     <div class="row">
-        <div class="row"><h1>About.</h1></div>
-        <p>
-            <strong>MySomm.</strong> is a queryable  web application that exists to help users quickly discover and make great decisions about wine.
-            Users can learn about vintages and grape varietals, as well as tasting notes, food pairings and producers.
-            Go to that party with confidence, knowing
-            that you are carrying a bottle of wine
-            everyone will love.
-        </p>
-        <div class="row"><br></div>
-        <div class="row"><h3><strong>3BlindMice</strong> Dev Team</h3></div>
-        <div class="row"><strong>Angeline Teets</strong></div>
-        <div class="row">Logic | Views | API</div>
-        <div class="row"><br></div>
-        <div class="row"><strong>Jeremy Durden</strong></div>
-        <div class="row">Scrum | Git | ReadMe | PostgreSQL | Model</div>
-        <div class="row"><br></div>
-        <div class="row"><strong>Kory Breitenbucher</strong></div>
-        <div class="row">Templates | Bootstrap | API | ERD | Wireframe</div>
+        <div class="col-2"></div>
+        <div class="col">
+            <p style="text-align: justified;">
+                <strong>MySomm.</strong> is a queryable  web application that exists to help users quickly discover and make great decisions about wine.
+                Users can learn about vintages and grape varietals, as well as tasting notes and producers.
+                Go to that party with confidence, knowing
+                that you are carrying a bottle of wine
+                everyone will love.
+            </p>
+        </div>
+        <div class="col-2"></div>
     </div>
+    <div class="row"><br><br></div>
+    <div class="row" style="text-align: center;"><h3><strong>3BlindMice</strong> Dev Team</h3></div>
+    <div class="row"><br></div>
+    <div class="row">
+        <div class="col-4">
+            <img style="width: 150px; border-radius: 50%;" src="{% static 'images/Angeline.jpg' %}" alt="My image"/>
+            <div class="row">
+                <div class="col">
+                    <strong>Angeline Teets</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Logic | Views | API | CSS | Data Mapping
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <img style="width: 150px; border-radius: 50%;" src="{% static 'images/Jeremy.jpg' %}" alt="My image"/>
+            <div class="row">
+                <div class="col">
+                    <strong>Jeremy Durden</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Scrum | Git | API | ReadMe | PostgreSQL | Model
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <img style="width: 150px; border-radius: 50%;" src="{% static 'images/Kory.jpg' %}" alt="My image"/>
+            <div class="row">
+                <div class="col">
+                    <strong>Kory Breitenbucher</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Heroku | Templates | CSS | ERD | Wireframe
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
