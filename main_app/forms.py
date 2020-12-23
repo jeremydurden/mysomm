@@ -24,7 +24,7 @@ class WineForm(ModelForm):
     style = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     grape = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     vintage = forms.CharField(max_length=4, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    color = forms.ChoiceField(choices=Wine.COLOR_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
+    color = forms.ChoiceField(choices=Wine.COLOR_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control form-placeholder'}))
     taste_notes = forms.CharField(max_length=250, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     image_url = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 

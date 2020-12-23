@@ -68,7 +68,8 @@ class Wine(models.Model):
     def get_absolute_url(self):
         return reverse('winery_detail', kwargs={'winery_id': self.winery.id})
 
-    
+
+# Grape Model for Future Expansion    
 class Grape(models.Model):
     name = models.CharField(max_length=100)
     sci_name = models.CharField(max_length=100)

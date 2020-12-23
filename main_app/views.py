@@ -89,8 +89,6 @@ def winery_detail(request, winery_id):
   return render(request, 'winery/detail.html', {"winery": winery, "wine_form": wine_form})
 
 def winery_update(request, winery_id):
-  ##Check to see if user owns winery, 
-  ## if not redirect
   winery = Winery.objects.get(pk=winery_id)
   if request.method == 'POST':
     form = WineryForm(request.POST)
@@ -184,13 +182,29 @@ class WineDetail(DetailView):
         context['quini_token'] = 'ujm3rn9xivc2ulzyjh82'
         return context
 
-class WineUpdate(UpdateView):
-  model = Wine
-  fields = ['style', 'grape', 'vintage', 'color', 'taste_notes', 'image_url', ]
-  def get_context_data(self, **kwargs):
-      context = super(WineUpdate, self).get_context_data(**kwargs)
-      context['wine_form']  = WineForm()
-      return context
+
+def wine_update(request, wine_id):
+  wine = Wine.objects.get(pk=wine_id)
+  if request.method == 'POST':
+    form = WineForm(request.POST)
+    if form.is_valid():
+      wine.name = form.cleaned_data['name']
+      wine.style = form.cleaned_data['style']
+      wine.grape = form.cleaned_data['grape']
+      wine.color = form.cleaned_data['color']
+      wine.taste_notes = form.cleaned_data['taste_notes']
+      wine.image_url = form.cleaned_data['image_url']
+      wine.save()
+      return redirect('wine_detail', pk=wine_id)
+  form = WineForm(initial={
+    'name': wine.name,
+    'style': wine.style,
+    'grape': wine.grape,
+    'color': wine.color,
+    'taste_notes': wine.taste_notes,
+    'image_url': wine.image_url,
+    })
+  return render(request, 'main_app/wine_form.html', {"wine_form": form, "wine": wine})
 
 class WineDelete(DeleteView):
   model = Wine
@@ -262,8 +276,7 @@ class EnthusiastSignUpView(CreateView):
     template_name = 'registration/enthusiast.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'enthusiast'
-
+        kwargs['user_type'] = 'teacher'
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):

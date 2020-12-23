@@ -153,6 +153,14 @@ img.winery-image {
  color: var(--theme-red);
 }
 
+.btn.cancel {
+    color: var(--theme-red);
+}
+
 .sign-up.container {
     min-width: 400px;
+}
+
+.profile p {
+    font-size: 20px;
 }

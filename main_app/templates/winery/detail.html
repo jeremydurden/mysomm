@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
 <div class="row">
@@ -63,5 +64,6 @@
         </form>
     </div>
 </div>
+<script defer src="{% static 'js/winery.js' %}"></script>
 {% endblock %}
 
