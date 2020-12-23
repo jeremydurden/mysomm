@@ -56,7 +56,9 @@
             <div class="navbar-nav">
                 <div id="current_link" class="nav-button"><a href="/findwines" class="nav-item nav-link">FindWines.</a></div>
                 {% if user.is_authenticated %}
+                {% if user.is_vintner %}
                 <div class="nav-button"><a href="/mywines" class="nav-item nav-link">MyWines.</a></div>
+                {% endif %}
                 <div class="nav-button"><a href="/profile" class="nav-item nav-link">MyProfile.</a></div>
                 {% endif %}
                 <div class="nav-button"><a href="/glossary" class="nav-item nav-link">Glossary.</a></div>
