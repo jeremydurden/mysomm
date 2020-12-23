@@ -98,15 +98,16 @@ table  {
 #scrollSpy {
 	position: relative; /* required */
 }
+a.active, .list-group-item.active {
+  background-color: var(--theme-red);
+}
 .list-group{
     position: sticky; /* Supported in latest version of Chrome, Firefox, Safari, Opera and Edge browsers */
     top: 15px;
     background: none;
     width: 75px;
 }
-a.active {
-  background-color: red !important;
-}
+
 
 .hidden {
     display: none;
