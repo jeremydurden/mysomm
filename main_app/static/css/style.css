@@ -211,7 +211,7 @@ width: 15%;
 width: 50%;
 }
 
-#wine-results-header {
+#wine-results-header, #winery-results-header {
     background-color: #fff;
     color: #272727;
     font-weight: 18px;
