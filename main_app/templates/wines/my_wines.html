@@ -6,7 +6,6 @@
         <h1>My Wines</h1>
 
         {% for wine in my_wines %}
-       
         <div class="row" style="min-width: 600px; margin-bottom: 10px;">
             <div class="col-2"></div>
             <div class="col-9" style="text-align: left;">
@@ -14,15 +13,9 @@
                  {{ wine.winery.name }} ({{ wine.winery.county.name }} County)
             </div>
         </div>
-
-                {% endfor %}
-
+        {% endfor %}
         <br>
     </div>
 </div>
-
-
-
-
 
 {% endblock %}
