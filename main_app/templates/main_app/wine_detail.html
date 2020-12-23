@@ -3,11 +3,11 @@
 {% block body %}
 <div class="row">
     <div class="col content-container">
-        <h1>Wine Details</h1>
+        <h2>{{wine.name}}</h2>
 
         <div class="row" style="text-align: left;">
             <div class="col-sm-8">
-                <h5><strong>{{wine.name}} </strong></h5>
+                <p><span>produced by <a href="{% url 'winery_detail' wine.winery.id %}">{{ wine.winery.name}}</a> </span></p>
             </div>
             <div class="col-sm-1" style="margin: 0 5px;">
                 <a href="{% url 'wine_update' wine.id %}">Edit</a>
@@ -17,22 +17,20 @@
                 <a href="{% url 'wine_delete' wine.id %}">Delete</a>
             </div>
         </div>
-        <div class="row" style="text-align: left;">
-            <h6><span>produced by <a href="{% url 'winery_detail' wine.winery.id %}">{{ wine.winery.name}}</a> </span></h6>
-        </div>
         <br>
-        <div class="row">
+        <div class="divider"></div>
+        <div class="row wine-attr">
             <div class="col">
-                <strong>Style</strong>
+                <span>Style</span>
             </div>
             <div class="col">
-                <strong>Grape</strong>
+                <span>Grape</span>
             </div>
             <div class="col">
-                <strong>Vintage</strong>
+                <span>Vintage</span>
             </div>
             <div class="col">
-                <strong>Color</strong>
+                <span>Color</span>
             </div>
         </div>
         <div class="row">
@@ -49,43 +47,34 @@
                 {{wine.color}}
             </div>
         </div>
-        <br>
+        <br><br>
         <div class="row" style="text-align: left;">
-            <strong>Taste Notes</strong>
+            <h5>Taste Notes</h5>
         </div>
         <div class="row" style="text-align: left;">
-            <p>{{wine.taste_notes}}</p>
+            <p>{{ wine.taste_notes }}</p>
         </div>
         <div class="row">
             <img src="{{ wine.image_url }}" alt="picture of wine bottle" style="width: 80%; height: auto;">
         </div>
-        <br>
+        <br><br>
 
         <div class="row" style="text-align: left;">
             <h3>Other Wines at this Winery</h3>
 
             <div class="row" style="text-align: left;">
                 {% for other_wine in wine.winery.wine_set.all %}
-                {% if other_wine.id != wine.id %}
-                <div class="col-sm-8">
-                    <a href="{% url 'wine_detail' other_wine.id %}">
-                        <span style="font-style: italic;">{{other_wine.name}} </span>
-                        is a {{other_wine.vintage}} {{other_wine.style}}</a>
-                </div>
-<<<<<<< HEAD
-                {% endif%}
+                    {% if other_wine.id != wine.id %}
+                    <div style="margin-left: 15px;" class="col-sm-8">
+                        <a href="{% url 'wine_detail' other_wine.id %}">
+                            <span style="font-style: italic;">{{other_wine.name}} </span>
+                            is a {{other_wine.vintage}} {{other_wine.style}}</a>
+                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
         <br>
-=======
-
-                {% endif%}
-                {% endfor %}
-
-            </div>
-        </div>
->>>>>>> main
 
         <br>
 
@@ -104,38 +93,58 @@
     </div>
 
 
-<div class="col content-container">
-    <h3>MySomm. Reviews</h3>
-    {% for comment in wine.comment_set.all %}
-    <div class="row">
-        <div class="col-sm-8" style="text-align: left;">
-            <strong>{{comment.rating}} star wine!</strong>
+    <div class="col content-container">
+        <h3>MySomm. Reviews</h3>
+        {% for comment in wine.comment_set.all %}
+        <div class="row">
+            <div class="col-sm-8">
+                {{comment.content}}
+            </div>
         </div>
-        <div class="row" style="text-align: left;">
-            {%if user.first_name %}
-            {{ user.first_name }}
-            {% else %}
-            {{ user.username }}
-            {% endif %}
-            : {{comment.content}}
+        <div class='row'>
+            <div class="col-sm-8">
+                {%if user.first_name %}
+                {{ user.first_name }}
+                {% else %}
+                {{ user.username }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2">
+                <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+            </div>
         </div>
-        <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
-            <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+           
+           
+            <!-- <div class="col-sm-8" style="text-align: left;">
+                <p>{{ comment.rating }} star</p>
+            </div>
+            <div class="row" style="text-align: left;">
+                <div class="col-sm-8">
+                    {%if user.first_name %}
+                    {{ user.first_name }}
+                    {% else %}
+                    {{ user.username }}
+                    {% endif %}
+                    : {{comment.content}}
+                </div>
+                <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
+                    <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+                </div>
+            </div> -->
+        <!-- </div> -->
+        <!-- <div class="row" style="text-align: left;">
+            {{comment.content}}
+        </div> -->
+        <br>
+        {% endfor %}
+        <div class="row">
+            <form action="{% url 'add_comment' wine.id %}" method="post">
+                {% csrf_token %}
+                {{ comment_form }}
+                <input type="submit" class="btn" value="Add Comment">
+            </form>
         </div>
     </div>
-    <div class="row" style="text-align: left;">
-        {{comment.content}}
-    </div>
-    <br>
-    {% endfor %}
-    <div class="row">
-        <form action="{% url 'add_comment' wine.id %}" method="post">
-            {% csrf_token %}
-            {{ comment_form }}
-            <input type="submit" class="btn" value="Add Comment">
-        </form>
-    </div>
-</div>
 </div>
 <br>
 
