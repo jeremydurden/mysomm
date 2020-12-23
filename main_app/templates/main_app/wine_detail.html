@@ -58,7 +58,9 @@
             <p>{{ wine.taste_notes }}</p>
         </div>
         <div class="row">
+            {% if wine.image_url %}
             <img src="{{ wine.image_url }}" alt="picture of wine bottle" style="width: 80%; height: auto;">
+            {% endif %}
         </div>
         <br><br>
 
