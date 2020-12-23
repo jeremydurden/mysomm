@@ -10,12 +10,12 @@
                 <h5><strong>{{wine.name}} </strong></h5>
             </div>
             <div class="col-sm-1" style="margin: 0 5px;">
-                    <a href="{% url 'wine_update' wine.id %}">Edit</a>
-                </div>
+                <a href="{% url 'wine_update' wine.id %}">Edit</a>
+            </div>
 
-                <div class="col-sm-1" style="margin: 0 5px;">
-                    <a href="{% url 'wine_delete' wine.id %}">Delete</a>
-                </div>
+            <div class="col-sm-1" style="margin: 0 5px;">
+                <a href="{% url 'wine_delete' wine.id %}">Delete</a>
+            </div>
         </div>
         <div class="row" style="text-align: left;">
             <h6><span>produced by <a href="{% url 'winery_detail' wine.winery.id %}">{{ wine.winery.name}}</a> </span></h6>
@@ -73,14 +73,11 @@
                         is a {{other_wine.vintage}} {{other_wine.style}}</a>
                 </div>
 
-
             </div>
             {% endif%}
             {% endfor %}
         </div>
 <br>
-
-
         <div id="quini" class="row hidden" style="text-align: left;">
             <h3 id="quini-h2">Quini Reviews</h3>
 
@@ -88,41 +85,40 @@
 
             </table>
         </div>
-
-
     </div>
+
 <br>
-    <div class="col-sm-1">
+<div class="col-sm-1">
 <!--    SPACER    -->
-    </div>
+</div>
 
-    <div class="col content-container">
-        <h3>MySomm. Reviews</h3>
-        {% for comment in wine.comment_set.all %}
-        <div class="row">
-            <div class="col-sm-8" style="text-align: left;">
-                <strong>{{comment.rating}} star wine!</strong>
-            </div>
-            <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
-                <a href="{% url 'comment_update' comment.id %}">Edit</a>
-            </div>
-            <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
-                <a href="{% url 'comment_delete' comment.id %}">Delete</a>
-            </div>
+<div class="col content-container">
+    <h3>MySomm. Reviews</h3>
+    {% for comment in wine.comment_set.all %}
+    <div class="row">
+        <div class="col-sm-8" style="text-align: left;">
+            <strong>{{comment.rating}} star wine!</strong>
         </div>
-        <div class="row" style="text-align: left;">
-            {{comment.content}}
+        <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
+            <a href="{% url 'comment_update' comment.id %}">Edit</a>
         </div>
-        <br>
-        {% endfor %}
-        <div class="row">
-            <form action="{% url 'add_comment' wine.id %}" method="post">
-                {% csrf_token %}
-                {{ comment_form }}
-                <input type="submit" class="btn" value="Add Comment">
-            </form>
+        <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
+            <a href="{% url 'comment_delete' comment.id %}">Delete</a>
         </div>
     </div>
+    <div class="row" style="text-align: left;">
+        {{comment.content}}
+    </div>
+    <br>
+    {% endfor %}
+    <div class="row">
+        <form action="{% url 'add_comment' wine.id %}" method="post">
+            {% csrf_token %}
+            {{ comment_form }}
+            <input type="submit" class="btn" value="Add Comment">
+        </form>
+    </div>
+</div>
 </div>
 <br>
 
