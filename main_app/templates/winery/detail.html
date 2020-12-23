@@ -25,10 +25,10 @@
                 </div>
                 {% if winery.user == user %}
                 <div class="col-1">
-                    <a href="{% url 'winery_update' winery.id %}"><button class="btn">Edit</button></a>
+                    <a href="{% url 'winery_update' winery.id %}">Edit</a>
                 </div>
                 <div class="col-1">
-                    <a href="{% url 'winery_delete' winery.id %}"><button class="btn">Delete</button></a>
+                    <a href="{% url 'winery_delete' winery.id %}">Delete</a>
                 </div>
                 {% endif %}
             </div>

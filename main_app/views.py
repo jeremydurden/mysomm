@@ -156,7 +156,6 @@ class WineryDelete(LoginRequiredMixin, DeleteView):
   success_url = '/profile/'
 
 
-@login_required
 def winery_search(request):
   if request.is_ajax() and request.method == "GET":
     filter_terms = {}
