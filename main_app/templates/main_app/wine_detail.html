@@ -4,11 +4,13 @@
 <div class="row">
     <div class="col content-container">
         <h2>{{wine.name}}</h2>
+        <br>
 
         <div class="row" style="text-align: left;">
             <div class="col-sm-8">
                 <p><span>produced by <a href="{% url 'winery_detail' wine.winery.id %}">{{ wine.winery.name}}</a> </span></p>
             </div>
+            {% if wine.winery.user == user %}
             <div class="col-sm-1" style="margin: 0 5px;">
                 <a href="{% url 'wine_update' wine.id %}">Edit</a>
             </div>
@@ -16,6 +18,7 @@
             <div class="col-sm-1" style="margin: 0 5px;">
                 <a href="{% url 'wine_delete' wine.id %}">Delete</a>
             </div>
+            {% endif %}
         </div>
         <br>
         <div class="divider"></div>
@@ -96,51 +99,42 @@
     <div class="col content-container">
         <h3>MySomm. Reviews</h3>
         {% for comment in wine.comment_set.all %}
+        <br>
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-7">
                 {{comment.content}}
             </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+                {{ comment.rating }} stars
+            </div>
         </div>
+        <br>
         <div class='row'>
             <div class="col-sm-8">
-                {%if user.first_name %}
-                {{ user.first_name }}
+                by {%if comment.user.first_name %}
+                {{ comment.user.first_name }}
                 {% else %}
-                {{ user.username }}
+                {{ comment.username }}
                 {% endif %}
             </div>
             <div class="col-sm-2">
+                {% if comment.user == user %}
                 <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+                {% endif %}
             </div>
         </div>
-           
-           
-            <!-- <div class="col-sm-8" style="text-align: left;">
-                <p>{{ comment.rating }} star</p>
-            </div>
-            <div class="row" style="text-align: left;">
-                <div class="col-sm-8">
-                    {%if user.first_name %}
-                    {{ user.first_name }}
-                    {% else %}
-                    {{ user.username }}
-                    {% endif %}
-                    : {{comment.content}}
-                </div>
-                <div class="col-sm-1" style="margin: 0 5px; text-align: right;">
-                    <a href="{% url 'comment_delete' comment.id %}">Delete</a>
-                </div>
-            </div> -->
-        <!-- </div> -->
-        <!-- <div class="row" style="text-align: left;">
-            {{comment.content}}
-        </div> -->
+        <br>
+           <div class="divider"></div>
+
         <br>
         {% endfor %}
         <div class="row">
-            <form action="{% url 'add_comment' wine.id %}" method="post">
+            <form class="comment-form" action="{% url 'add_comment' wine.id %}" method="post">
                 {% csrf_token %}
                 {{ comment_form }}
+                <br>
                 <input type="submit" class="btn" value="Add Comment">
             </form>
         </div>
@@ -207,10 +201,13 @@
             let tr = document.createElement('tr');
             let catTd = document.createElement('td');
             catTd.textContent = category;
+            catTd.classList.add('q-cat');
             let scoreTd = document.createElement('td');
-            scoreTd.textContent = score;
+            scoreTd.textContent = score + " / 100";
+            scoreTd.classList.add('q-score');
             let textTd = document.createElement('td');
             textTd.textContent = text;
+            textTd.classList.add('q-content');
             tr.appendChild(catTd);
             tr.appendChild(scoreTd);
             tr.appendChild(textTd);
